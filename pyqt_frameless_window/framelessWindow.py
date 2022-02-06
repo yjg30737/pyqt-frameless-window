@@ -10,6 +10,7 @@ class FramelessWindow(QWidget):
 
         self._margin = 3
         self._cursor = QCursor()
+        self._dragMenuBarOnlyWayToMoveWindowFlag = False
 
         self.__initPosition()
         self.__initBasicUi()
@@ -81,7 +82,10 @@ class FramelessWindow(QWidget):
             if self._resized:
                 self._resize()
             else:
-                self._move()
+                if self._dragMenuBarOnlyWayToMoveWindowFlag:
+                    pass
+                else:
+                    self._move()
         return super().mousePressEvent(e)
 
     def mouseMoveEvent(self, e):
