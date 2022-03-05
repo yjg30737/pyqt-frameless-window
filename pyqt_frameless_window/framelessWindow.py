@@ -122,3 +122,7 @@ class FramelessWindow(QWidget):
     def _move(self):
         window = self.windowHandle()
         window.startSystemMove()
+
+    def setMargin(self, margin: int):
+        self._margin = margin
+        self.layout().setContentsMargins(self._margin, self._margin, self._margin, self._margin)
