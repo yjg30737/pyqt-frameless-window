@@ -23,6 +23,9 @@ The window's minimum size is set to <b>60, 60</b>.
 
 You can use this as a super class if you want to make movable, resizable, cursor-reshapable frameless window. This is no use on its own.
 
+## Method Overview
+* ```setMargin(margin: int)``` - Set the margin which allows cursor to change its shape to resize form.
+
 ## Example
 Code Sample
 ```python
