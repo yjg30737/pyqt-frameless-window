@@ -25,6 +25,7 @@ You can use this as a super class if you want to make movable, resizable, cursor
 
 ## Method Overview
 * ```setMargin(margin: int)``` - Set the margin which allows cursor to change its shape to resize form.
+* ```setResizable(f: bool)``` - Set resizable/none resizable
 
 ## Example
 Code Sample
