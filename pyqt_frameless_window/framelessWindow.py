@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QWidget
 class FramelessWindow(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
-        self._resized = False
+        self._resizing = False
         self._resizable = True
 
         self._margin = 3
@@ -36,8 +36,8 @@ class FramelessWindow(QWidget):
         rect.setWidth(self.rect().width() - self._margin * 2)
         rect.setHeight(self.rect().height() - self._margin * 2)
 
-        self._resized = rect.contains(p)
-        if self._resized:
+        self._resizing = rect.contains(p)
+        if self._resizing:
             # resize end
             self.unsetCursor()
             self._cursor = self.cursor()
@@ -76,11 +76,11 @@ class FramelessWindow(QWidget):
                 self._cursor.setShape(Qt.SizeVerCursor)
             self.setCursor(self._cursor)
 
-        self._resized = not self._resized
+        self._resizing = not self._resizing
 
     def mousePressEvent(self, e):
         if e.button() == Qt.LeftButton:
-            if self._resized:
+            if self._resizing:
                 self._resize()
             else:
                 if self._pressToMove:
