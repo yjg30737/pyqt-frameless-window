@@ -7,6 +7,7 @@ class FramelessWindow(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
         self._resized = False
+        self._resizable = True
 
         self._margin = 3
         self._cursor = QCursor()
@@ -87,12 +88,14 @@ class FramelessWindow(QWidget):
         return super().mousePressEvent(e)
 
     def mouseMoveEvent(self, e):
-        self.__setCursorShapeForCurrentPoint(e.pos())
+        if self.isResizable():
+            self.__setCursorShapeForCurrentPoint(e.pos())
         return super().mouseMoveEvent(e)
 
     # prevent accumulated cursor shape bug
     def enterEvent(self, e):
-        self.__setCursorShapeForCurrentPoint(e.pos())
+        if self.isResizable():
+            self.__setCursorShapeForCurrentPoint(e.pos())
         return super().enterEvent(e)
 
     def _resize(self):
@@ -126,3 +129,9 @@ class FramelessWindow(QWidget):
     def setMargin(self, margin: int):
         self._margin = margin
         self.layout().setContentsMargins(self._margin, self._margin, self._margin, self._margin)
+
+    def isResizable(self) -> bool:
+        return self._resizable
+
+    def setResizable(self, f: bool):
+        self._resizable = f
