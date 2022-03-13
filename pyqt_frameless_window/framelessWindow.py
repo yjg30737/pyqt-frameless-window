@@ -135,3 +135,6 @@ class FramelessWindow(QWidget):
 
     def setResizable(self, f: bool):
         self._resizable = f
+
+    def setPressToMove(self, f: bool):
+        self._pressToMove = f
