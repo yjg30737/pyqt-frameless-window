@@ -17,7 +17,7 @@ class FramelessWindow(QWidget):
         self.__initBasicUi()
 
     def __initBasicUi(self):
-        self.setMinimumSize(60, 60)
+        self.setMinimumSize(self.sizeHint().width(), self.sizeHint().height())
         self.setMouseTracking(True)
         self.setWindowFlags(Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinMaxButtonsHint)
 
