@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QCursor
+from PyQt5.QtGui import QCursor, QColor
 from PyQt5.QtWidgets import QWidget
 
 
@@ -141,3 +141,6 @@ class FramelessWindow(QWidget):
 
     def setPressToMove(self, f: bool):
         self._pressToMove = f
+
+    def setFrameColor(self, color: QColor):
+        self.setStyleSheet(f'background-color: {color.name()}')
