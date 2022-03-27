@@ -142,5 +142,7 @@ class FramelessWindow(QWidget):
     def setPressToMove(self, f: bool):
         self._pressToMove = f
 
-    def setFrameColor(self, color: QColor):
+    def setFrameColor(self, color):
+        if isinstance(color, str):
+            color = QColor(color)
         self.setStyleSheet(f'background-color: {color.name()}')
