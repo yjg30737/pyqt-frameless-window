@@ -99,7 +99,7 @@ class FramelessWindow(QWidget):
         return super().enterEvent(e)
 
     def _resize(self):
-        window = self.windowHandle()
+        window = self.window().windowHandle()
         # reshape cursor for resize
         if self._cursor.shape() == Qt.SizeHorCursor:
             if self.__left:
@@ -123,7 +123,7 @@ class FramelessWindow(QWidget):
                 window.startSystemResize(Qt.BottomEdge | Qt.RightEdge)
 
     def _move(self):
-        window = self.windowHandle()
+        window = self.window().windowHandle()
         window.startSystemMove()
 
     def setMargin(self, margin: int):
