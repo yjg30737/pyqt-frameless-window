@@ -5,7 +5,7 @@ PyQt frameless window
 * PyQt5 >= 5.15
 
 ## Setup
-```pip3 install git+https://github.com/yjg30737/pyqt-frameless-window.git --upgrade```
+`python -m pip install pyqt-frameless-window`
 
 ## Usage
 This is the empty window which has no frame. It looks nothing special, but it has a great feature.
