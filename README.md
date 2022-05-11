@@ -2,7 +2,7 @@
 PyQt frameless window
 
 ## Requirements
-* PyQt5 >= 5.15
+* PyQt5 >= 5.15 - to call <a href="https://doc.qt.io/qt-5/qwindow.html#startSystemMove">startSystemMove</a>, <a href="https://doc.qt.io/qt-5/qwindow.html#startSystemResize">startSystemResize</a> which are introduced in Qt 5.15.
 
 ## Setup
 `python -m pip install pyqt-frameless-window`
