@@ -1,5 +1,5 @@
 # pyqt-frameless-window
-PyQt Frameless Window (super class is QWidget) to inherit a variety of frameless widget
+PyQt frameless window
 
 ## Requirements
 * PyQt5 >= 5.15
@@ -19,9 +19,11 @@ When you place the mouse cursor over the edge of the window, mouse cursor's shap
 * Qt.SizeBDiagCursor
 * Qt.SizeFDiagCursor
 
-The window's minimum size is set to <b>60, 60</b>.
+The window's minimum size is set to inner widget's recommended minimum size.
 
 You can use this as a super class if you want to make movable, resizable, cursor-reshapable frameless window. This is no use on its own.
+
+<a href="https://github.com/yjg30737/pyqt-custom-titlebar-window.git">pyqt-custom-titlebar-window</a>(pacakge which helps to make custom titlebar) is using pyqt-frameless-window.
 
 ## Method Overview
 * ```setResizable(f: bool)``` - Set resizable/none-resizable
