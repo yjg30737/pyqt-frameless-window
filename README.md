@@ -29,11 +29,12 @@ If you want to customize the title bar easily than use <a href="https://github.c
 If you don't need any title bar or min/max/close buttons or something like that, just use this as a parent class of your widget.
 
 ## Method Overview
-* ```setResizable(f: bool)``` - Set resizable/none-resizable
-* ```isResizable() -> bool``` - Check the window is resizable or not
-* ```setPressToMove(f: bool)``` - Set movable/non-movable
-* ```setMargin(margin: int)``` - Set the margin which allows cursor to change its shape to resize form
-* ```setFrameColor(color)``` - Set the background color. `color` argument type can be both `QColor` and `str`.
+* `setResizable(f: bool)` - Set resizable/none-resizable
+* `isResizable() -> bool` - Check if window is resizable or not
+* `setPressToMove(f: bool)` - Set movable/non-movable
+* `isPressToMove() -> bool` - Check if window is movable or not
+* `setMargin(margin: int)` - Set the margin which allows cursor to change its shape to resize form
+* `setFrameColor(color)` - Set the background color. `color` argument type can be both `QColor` and `str`.
 
 ## Example
 Code Sample
