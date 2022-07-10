@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QCursor, QColor
+from PyQt5.QtGui import QCursor, QPalette, QBrush, QColor
 from PyQt5.QtWidgets import QWidget
 
 
@@ -145,4 +145,7 @@ class FramelessWindow(QWidget):
     def setFrameColor(self, color):
         if isinstance(color, str):
             color = QColor(color)
-        self.setStyleSheet(f'background-color: {color.name()}')
+        p = QPalette()
+        b = QBrush(color)
+        p.setBrush(QPalette.Window, b)
+        self.setPalette(p)
