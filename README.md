@@ -33,7 +33,7 @@ If you don't need any title bar or min/max/close buttons or something like that,
 * ```isResizable() -> bool``` - Check the window is resizable or not
 * ```setPressToMove(f: bool)``` - Set movable/none-movable dragging the window
 * ```setMargin(margin: int)``` - Set the margin which allows cursor to change its shape to resize form
-* ```setFrameColor()``` - Set the background color.
+* ```setFrameColor(color)``` - Set the background color. `color` argument type can be both `QColor` and `str`.
 
 ## Example
 Code Sample
