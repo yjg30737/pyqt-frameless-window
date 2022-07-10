@@ -32,7 +32,8 @@ If you don't need any title bar or min/max/close buttons or something like that,
 * ```setResizable(f: bool)``` - Set resizable/none-resizable
 * ```isResizable() -> bool``` - Check the window is resizable or not
 * ```setPressToMove(f: bool)``` - Set movable/none-movable dragging the window
-* ```setMargin(margin: int)``` - Set the margin which allows cursor to change its shape to resize form.
+* ```setMargin(margin: int)``` - Set the margin which allows cursor to change its shape to resize form
+* ```setFrameColor()``` - Set the background color.
 
 ## Example
 Code Sample
