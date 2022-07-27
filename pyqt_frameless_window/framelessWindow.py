@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor, QPalette, QBrush, QColor
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QDesktopWidget
 
 
 class FramelessWindow(QWidget):
@@ -12,6 +12,9 @@ class FramelessWindow(QWidget):
         self._margin = 3
         self._cursor = QCursor()
         self._pressToMove = False
+        self._verticalExpanded = False
+        self._originalY = 0
+        self._originalHeightBeforeExpand = 0
 
         self.__initPosition()
         self.__initBasicUi()
@@ -86,6 +89,49 @@ class FramelessWindow(QWidget):
                 if self._pressToMove:
                     self._move()
         return super().mousePressEvent(e)
+
+    def mouseDoubleClickEvent(self, e):
+        p = e.pos()
+
+        rect = self.rect()
+        rect.setX(self.rect().x() + self._margin)
+        rect.setY(self.rect().y() + self._margin)
+        rect.setWidth(self.rect().width() - self._margin * 2)
+        rect.setHeight(self.rect().height() - self._margin * 2)
+
+        x = p.x()
+        y = p.y()
+
+        x1 = self.rect().x()
+        y1 = self.rect().y()
+        x2 = self.rect().width()
+        y2 = self.rect().height()
+
+        self.__top = abs(y - y1) <= self._margin # far top
+        self.__bottom = abs(y - (y2 + y1)) <= self._margin # far bottom
+
+        ag = QDesktopWidget().availableGeometry()
+
+        if self._verticalExpanded:
+            if self.__top or self.__bottom:
+                self.move(self.x(), self._originalY)
+                self.resize(self.width(), self._originalHeightBeforeExpand)
+                self._verticalExpanded = False
+        else:
+            if self.__top or self.__bottom:
+                self._verticalExpanded = True
+                min_size = self.minimumSize()
+                max_size = self.maximumSize()
+                geo = self.geometry()
+                self._originalY = geo.y()
+                self._originalHeightBeforeExpand = geo.height()
+                geo.moveTop(0)
+                self.setGeometry(geo)
+                self.setFixedHeight(ag.height()-2)
+                self.setMinimumSize(min_size)
+                self.setMaximumSize(max_size)
+
+        return super().mouseDoubleClickEvent(e)
 
     def mouseMoveEvent(self, e):
         if self.isResizable():
