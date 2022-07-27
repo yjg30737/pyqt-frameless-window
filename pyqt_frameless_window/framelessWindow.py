@@ -99,26 +99,27 @@ class FramelessWindow(QWidget):
         rect.setWidth(self.rect().width() - self._margin * 2)
         rect.setHeight(self.rect().height() - self._margin * 2)
 
-        x = p.x()
         y = p.y()
 
-        x1 = self.rect().x()
         y1 = self.rect().y()
-        x2 = self.rect().width()
         y2 = self.rect().height()
 
-        self.__top = abs(y - y1) <= self._margin # far top
-        self.__bottom = abs(y - (y2 + y1)) <= self._margin # far bottom
+        top = abs(y - y1) <= self._margin # far top
+        bottom = abs(y - (y2 + y1)) <= self._margin # far bottom
 
         ag = QDesktopWidget().availableGeometry()
 
+        # fixme minor bug - resizing after expand can lead to inappropriate result when in comes to expanding again, it should be fixed
+        # vertical expanding when double-clicking either top or bottom edge
+        # back to normal
         if self._verticalExpanded:
-            if self.__top or self.__bottom:
+            if top or bottom:
                 self.move(self.x(), self._originalY)
                 self.resize(self.width(), self._originalHeightBeforeExpand)
                 self._verticalExpanded = False
+        # expand vertically
         else:
-            if self.__top or self.__bottom:
+            if top or bottom:
                 self._verticalExpanded = True
                 min_size = self.minimumSize()
                 max_size = self.maximumSize()
