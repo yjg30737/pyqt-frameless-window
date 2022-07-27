@@ -2,6 +2,8 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor, QPalette, QBrush, QColor
 from PyQt5.QtWidgets import QWidget, QDesktopWidget
 
+# todo prevent resizing when window is in the maximum size
+
 
 class FramelessWindow(QWidget):
     def __init__(self, *args, **kwargs):
