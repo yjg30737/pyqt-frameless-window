@@ -2,8 +2,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor, QPalette, QBrush, QColor
 from PyQt5.QtWidgets import QWidget, QDesktopWidget
 
-# todo prevent resizing when window is in the maximum/full screen
-
 
 class FramelessWindow(QWidget):
     def __init__(self, *args, **kwargs):
@@ -141,13 +139,19 @@ class FramelessWindow(QWidget):
 
     def mouseMoveEvent(self, e):
         if self.isResizable():
-            self.__setCursorShapeForCurrentPoint(e.pos())
+            if self.isMaximized() or self.isFullScreen():
+                pass
+            else:
+                self.__setCursorShapeForCurrentPoint(e.pos())
         return super().mouseMoveEvent(e)
 
     # prevent accumulated cursor shape bug
     def enterEvent(self, e):
         if self.isResizable():
-            self.__setCursorShapeForCurrentPoint(e.pos())
+            if self.isMaximized() or self.isFullScreen():
+                pass
+            else:
+                self.__setCursorShapeForCurrentPoint(e.pos())
         return super().enterEvent(e)
 
     def _resize(self):
