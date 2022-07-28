@@ -28,7 +28,7 @@ If you want to customize the title bar easily than use <a href="https://github.c
 
 If you don't need any title bar or min/max/close buttons or something like that, just use this as a parent class of your widget.
 
-It can expand vertically when double-clicking the top or bottom edge of the window. Minor bug still remains, but it is not fatal at all. 
+It can expand vertically when double-clicking the top or bottom edges of the window. Minor bug still remains, but it is not fatal at all. 
 
 ## Method Overview
 * `setResizable(f: bool)` - Set resizable/none-resizable
@@ -37,6 +37,7 @@ It can expand vertically when double-clicking the top or bottom edge of the wind
 * `isPressToMove() -> bool` - Check if window is movable or not
 * `setMargin(margin: int)` - Set the margin which allows cursor to change its shape to resize form
 * `setFrameColor(color)` - Set the background color. `color` argument type can be both `QColor` and `str`.
+* `setVerticalExpandedEnabled(f: bool)` - Make it able to expand vertically when double-clicking the top or bottom edges of the window.
 
 ## Example
 Code Sample
