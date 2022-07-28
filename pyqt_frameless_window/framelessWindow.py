@@ -34,54 +34,58 @@ class FramelessWindow(QWidget):
         self.__right = False
 
     def __setCursorShapeForCurrentPoint(self, p):
-        # give the margin to reshape cursor shape
-        rect = self.rect()
-        rect.setX(self.rect().x() + self._margin)
-        rect.setY(self.rect().y() + self._margin)
-        rect.setWidth(self.rect().width() - self._margin * 2)
-        rect.setHeight(self.rect().height() - self._margin * 2)
+        if self.isResizable():
+            if self.isMaximized() or self.isFullScreen():
+                pass
+            else:
+                # give the margin to reshape cursor shape
+                rect = self.rect()
+                rect.setX(self.rect().x() + self._margin)
+                rect.setY(self.rect().y() + self._margin)
+                rect.setWidth(self.rect().width() - self._margin * 2)
+                rect.setHeight(self.rect().height() - self._margin * 2)
 
-        self._resizing = rect.contains(p)
-        if self._resizing:
-            # resize end
-            self.unsetCursor()
-            self._cursor = self.cursor()
-            self.__initPosition()
-        else:
-            # resize start
-            x = p.x()
-            y = p.y()
+                self._resizing = rect.contains(p)
+                if self._resizing:
+                    # resize end
+                    self.unsetCursor()
+                    self._cursor = self.cursor()
+                    self.__initPosition()
+                else:
+                    # resize start
+                    x = p.x()
+                    y = p.y()
 
-            x1 = self.rect().x()
-            y1 = self.rect().y()
-            x2 = self.rect().width()
-            y2 = self.rect().height()
+                    x1 = self.rect().x()
+                    y1 = self.rect().y()
+                    x2 = self.rect().width()
+                    y2 = self.rect().height()
 
-            self.__left = abs(x - x1) <= self._margin # if mouse cursor is at the almost far left
-            self.__top = abs(y - y1) <= self._margin # far top
-            self.__right = abs(x - (x2 + x1)) <= self._margin # far right
-            self.__bottom = abs(y - (y2 + y1)) <= self._margin # far bottom
+                    self.__left = abs(x - x1) <= self._margin # if mouse cursor is at the almost far left
+                    self.__top = abs(y - y1) <= self._margin # far top
+                    self.__right = abs(x - (x2 + x1)) <= self._margin # far right
+                    self.__bottom = abs(y - (y2 + y1)) <= self._margin # far bottom
 
-            # set the cursor shape based on flag above
-            if self.__top and self.__left:
-                self._cursor.setShape(Qt.SizeFDiagCursor)
-            elif self.__top and self.__right:
-                self._cursor.setShape(Qt.SizeBDiagCursor)
-            elif self.__bottom and self.__left:
-                self._cursor.setShape(Qt.SizeBDiagCursor)
-            elif self.__bottom and self.__right:
-                self._cursor.setShape(Qt.SizeFDiagCursor)
-            elif self.__left:
-                self._cursor.setShape(Qt.SizeHorCursor)
-            elif self.__top:
-                self._cursor.setShape(Qt.SizeVerCursor)
-            elif self.__right:
-                self._cursor.setShape(Qt.SizeHorCursor)
-            elif self.__bottom:
-                self._cursor.setShape(Qt.SizeVerCursor)
-            self.setCursor(self._cursor)
+                    # set the cursor shape based on flag above
+                    if self.__top and self.__left:
+                        self._cursor.setShape(Qt.SizeFDiagCursor)
+                    elif self.__top and self.__right:
+                        self._cursor.setShape(Qt.SizeBDiagCursor)
+                    elif self.__bottom and self.__left:
+                        self._cursor.setShape(Qt.SizeBDiagCursor)
+                    elif self.__bottom and self.__right:
+                        self._cursor.setShape(Qt.SizeFDiagCursor)
+                    elif self.__left:
+                        self._cursor.setShape(Qt.SizeHorCursor)
+                    elif self.__top:
+                        self._cursor.setShape(Qt.SizeVerCursor)
+                    elif self.__right:
+                        self._cursor.setShape(Qt.SizeHorCursor)
+                    elif self.__bottom:
+                        self._cursor.setShape(Qt.SizeVerCursor)
+                    self.setCursor(self._cursor)
 
-        self._resizing = not self._resizing
+                self._resizing = not self._resizing
 
     def mousePressEvent(self, e):
         if e.button() == Qt.LeftButton:
@@ -138,20 +142,12 @@ class FramelessWindow(QWidget):
         return super().mouseDoubleClickEvent(e)
 
     def mouseMoveEvent(self, e):
-        if self.isResizable():
-            if self.isMaximized() or self.isFullScreen():
-                pass
-            else:
-                self.__setCursorShapeForCurrentPoint(e.pos())
+        self.__setCursorShapeForCurrentPoint(e.pos())
         return super().mouseMoveEvent(e)
 
     # prevent accumulated cursor shape bug
     def enterEvent(self, e):
-        if self.isResizable():
-            if self.isMaximized() or self.isFullScreen():
-                pass
-            else:
-                self.__setCursorShapeForCurrentPoint(e.pos())
+        self.__setCursorShapeForCurrentPoint(e.pos())
         return super().enterEvent(e)
 
     def _resize(self):
