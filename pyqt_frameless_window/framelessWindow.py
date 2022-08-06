@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QCursor, QPalette, QBrush, QColor
-from PyQt5.QtWidgets import QWidget, QDesktopWidget
+from PyQt5.QtGui import QCursor, QPalette, QBrush, QColor, QScreen
+from PyQt5.QtWidgets import QWidget
 
 
 class FramelessWindow(QWidget):
@@ -114,7 +114,7 @@ class FramelessWindow(QWidget):
             top = abs(y - y1) <= self._margin # far top
             bottom = abs(y - (y2 + y1)) <= self._margin # far bottom
 
-            ag = QDesktopWidget().availableGeometry()
+            ag = QScreen().availableGeometry()
 
             # fixme minor bug - resizing after expand can lead to inappropriate result when in comes to expanding again, it should be fixed
             # vertical expanding when double-clicking either top or bottom edge
