@@ -61,4 +61,6 @@ Result
 
 Try to move and resize it.
 
+## See Also
+* <a href="https://github.com/yjg30737/pyqt-shadow-frame-window-example">pyqt-shadow-frame-window-example</a> - Frameless window feature + rounded corner and shadow effect.
 
