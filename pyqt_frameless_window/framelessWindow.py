@@ -202,5 +202,8 @@ class FramelessWindow(QWidget):
         p.setBrush(QPalette.Window, b)
         self.setPalette(p)
 
+    def getFrameColor(self) -> QColor:
+        return self.palette().color(QPalette.Window)
+
     def setVerticalExpandedEnabled(self, f: bool):
         self._verticalExpandedEnabled = f
