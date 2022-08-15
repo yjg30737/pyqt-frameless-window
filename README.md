@@ -37,6 +37,7 @@ It can expand vertically when double-clicking the top or bottom edges of the win
 * `isPressToMove() -> bool` - Check if window is movable or not
 * `setMargin(margin: int)` - Set the margin which allows cursor to change its shape to resize form
 * `setFrameColor(color)` - Set the background color. `color` argument type can be both `QColor` and `str`.
+* `getFrameColor -> QColor` - Get the background color.
 * `setVerticalExpandedEnabled(f: bool)` - Make it able to expand vertically when double-clicking the top or bottom edges of the window.
 
 ## Example
