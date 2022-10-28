@@ -1,192 +1,51 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QCursor, QPalette, QBrush, QColor, QScreen
-from PyQt5.QtWidgets import QWidget
+from ctypes import cast
+
+import win32con
+import win32gui
+
+from qtpy.QtCore import Qt
+from qtpy.QtGui import QCursor
+from qtpy.QtWidgets import QWidget, QMainWindow, QDialog
+
+from ctypes.wintypes import LPRECT, MSG
+
+from pyqt_frameless_window.src import win32utils
+from pyqt_frameless_window.src.cEnumStructure import LPNCCALCSIZE_PARAMS
+from pyqt_frameless_window.src.windowEffect import WindowsEffectHelper
 
 
-class FramelessWindow(QWidget):
+class BaseWidget(QWidget):
     def __init__(self, *args, **kwargs):
-        super().__init__()
-        self._resizing = False
+        super().__init__(*args, **kwargs)
+        self._initVal()
+        self._initUi()
+
+    def _initVal(self):
+        self._pressToMove = True
         self._resizable = True
+        self._border_width = 5
 
-        self._margin = 3
-        self._cursor = QCursor()
-        self._pressToMove = False
+    def _initUi(self):
+        self._windowEffect = WindowsEffectHelper()
 
-        self._verticalExpandedEnabled = False
-        self._verticalExpanded = False
-        self._originalY = 0
-        self._originalHeightBeforeExpand = 0
+        # remove window border
+        # seems kinda pointless(though if you get rid of code below frame will still be seen), but if you don't add this, cursor won't properly work
+        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
 
-        self.__initPosition()
-        self.__initBasicUi()
+        # add DWM shadow and window animation
+        self._windowEffect.setBasicEffect(self.winId())
 
-    def __initBasicUi(self):
-        self.setMinimumSize(self.widthMM(), self.heightMM())
-        self.setMouseTracking(True)
-        self.setWindowFlags(Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinMaxButtonsHint)
-
-    # init the edge direction for set correct reshape cursor based on it
-    def __initPosition(self):
-        self.__top = False
-        self.__bottom = False
-        self.__left = False
-        self.__right = False
-
-    def __setCursorShapeForCurrentPoint(self, p):
-        if self.isResizable():
-            if self.isMaximized() or self.isFullScreen():
-                pass
-            else:
-                # give the margin to reshape cursor shape
-                rect = self.rect()
-                rect.setX(self.rect().x() + self._margin)
-                rect.setY(self.rect().y() + self._margin)
-                rect.setWidth(self.rect().width() - self._margin * 2)
-                rect.setHeight(self.rect().height() - self._margin * 2)
-
-                self._resizing = rect.contains(p)
-                if self._resizing:
-                    # resize end
-                    self.unsetCursor()
-                    self._cursor = self.cursor()
-                    self.__initPosition()
-                else:
-                    # resize start
-                    x = p.x()
-                    y = p.y()
-
-                    x1 = self.rect().x()
-                    y1 = self.rect().y()
-                    x2 = self.rect().width()
-                    y2 = self.rect().height()
-
-                    self.__left = abs(x - x1) <= self._margin # if mouse cursor is at the almost far left
-                    self.__top = abs(y - y1) <= self._margin # far top
-                    self.__right = abs(x - (x2 + x1)) <= self._margin # far right
-                    self.__bottom = abs(y - (y2 + y1)) <= self._margin # far bottom
-
-                    # set the cursor shape based on flag above
-                    if self.__top and self.__left:
-                        self._cursor.setShape(Qt.SizeFDiagCursor)
-                    elif self.__top and self.__right:
-                        self._cursor.setShape(Qt.SizeBDiagCursor)
-                    elif self.__bottom and self.__left:
-                        self._cursor.setShape(Qt.SizeBDiagCursor)
-                    elif self.__bottom and self.__right:
-                        self._cursor.setShape(Qt.SizeFDiagCursor)
-                    elif self.__left:
-                        self._cursor.setShape(Qt.SizeHorCursor)
-                    elif self.__top:
-                        self._cursor.setShape(Qt.SizeVerCursor)
-                    elif self.__right:
-                        self._cursor.setShape(Qt.SizeHorCursor)
-                    elif self.__bottom:
-                        self._cursor.setShape(Qt.SizeVerCursor)
-                    self.setCursor(self._cursor)
-
-                self._resizing = not self._resizing
+        self.windowHandle().screenChanged.connect(self._onScreenChanged)
 
     def mousePressEvent(self, e):
         if e.button() == Qt.LeftButton:
-            if self._resizing:
-                self._resize()
-            else:
-                if self._pressToMove:
-                    self._move()
+            if self._pressToMove:
+                self._move()
         return super().mousePressEvent(e)
-
-    def mouseDoubleClickEvent(self, e):
-        if self._verticalExpandedEnabled:
-            p = e.pos()
-
-            rect = self.rect()
-            rect.setX(self.rect().x() + self._margin)
-            rect.setY(self.rect().y() + self._margin)
-            rect.setWidth(self.rect().width() - self._margin * 2)
-            rect.setHeight(self.rect().height() - self._margin * 2)
-
-            y = p.y()
-
-            y1 = self.rect().y()
-            y2 = self.rect().height()
-
-            top = abs(y - y1) <= self._margin # far top
-            bottom = abs(y - (y2 + y1)) <= self._margin # far bottom
-
-            ag = QScreen().availableGeometry()
-
-            # fixme minor bug - resizing after expand can lead to inappropriate result when in comes to expanding again, it should be fixed
-            # vertical expanding when double-clicking either top or bottom edge
-            # back to normal
-            if self._verticalExpanded:
-                if top or bottom:
-                    self.move(self.x(), self._originalY)
-                    self.resize(self.width(), self._originalHeightBeforeExpand)
-                    self._verticalExpanded = False
-            # expand vertically
-            else:
-                if top or bottom:
-                    self._verticalExpanded = True
-                    min_size = self.minimumSize()
-                    max_size = self.maximumSize()
-                    geo = self.geometry()
-                    self._originalY = geo.y()
-                    self._originalHeightBeforeExpand = geo.height()
-                    geo.moveTop(0)
-                    self.setGeometry(geo)
-                    self.setFixedHeight(ag.height()-2)
-                    self.setMinimumSize(min_size)
-                    self.setMaximumSize(max_size)
-
-        return super().mouseDoubleClickEvent(e)
-
-    def mouseMoveEvent(self, e):
-        self.__setCursorShapeForCurrentPoint(e.pos())
-        return super().mouseMoveEvent(e)
-
-    # prevent accumulated cursor shape bug
-    def enterEvent(self, e):
-        self.__setCursorShapeForCurrentPoint(e.pos())
-        return super().enterEvent(e)
-
-    def _resize(self):
-        window = self.window().windowHandle()
-        # reshape cursor for resize
-        if self._cursor.shape() == Qt.SizeHorCursor:
-            if self.__left:
-                window.startSystemResize(Qt.LeftEdge)
-            elif self.__right:
-                window.startSystemResize(Qt.RightEdge)
-        elif self._cursor.shape() == Qt.SizeVerCursor:
-            if self.__top:
-                window.startSystemResize(Qt.TopEdge)
-            elif self.__bottom:
-                window.startSystemResize(Qt.BottomEdge)
-        elif self._cursor.shape() == Qt.SizeBDiagCursor:
-            if self.__top and self.__right:
-                window.startSystemResize(Qt.TopEdge | Qt.RightEdge)
-            elif self.__bottom and self.__left:
-                window.startSystemResize(Qt.BottomEdge | Qt.LeftEdge)
-        elif self._cursor.shape() == Qt.SizeFDiagCursor:
-            if self.__top and self.__left:
-                window.startSystemResize(Qt.TopEdge | Qt.LeftEdge)
-            elif self.__bottom and self.__right:
-                window.startSystemResize(Qt.BottomEdge | Qt.RightEdge)
 
     def _move(self):
         window = self.window().windowHandle()
         window.startSystemMove()
-
-    def setMargin(self, margin: int):
-        self._margin = margin
-        self.layout().setContentsMargins(self._margin, self._margin, self._margin, self._margin)
-
-    def isResizable(self) -> bool:
-        return self._resizable
-
-    def setResizable(self, f: bool):
-        self._resizable = f
 
     def isPressToMove(self) -> bool:
         return self._pressToMove
@@ -194,16 +53,108 @@ class FramelessWindow(QWidget):
     def setPressToMove(self, f: bool):
         self._pressToMove = f
 
-    def setFrameColor(self, color):
-        if isinstance(color, str):
-            color = QColor(color)
-        p = QPalette()
-        b = QBrush(color)
-        p.setBrush(QPalette.Window, b)
-        self.setPalette(p)
+    def isResizable(self) -> bool:
+        return self._resizable
 
-    def getFrameColor(self) -> QColor:
-        return self.palette().color(QPalette.Window)
+    def setResizable(self, f: bool):
+        self._resizable = f
 
-    def setVerticalExpandedEnabled(self, f: bool):
-        self._verticalExpandedEnabled = f
+    def nativeEvent(self, e, message):
+        msg = MSG.from_address(message.__int__())
+        # check if it is message from Windows OS
+        if msg.hWnd:
+            # update cursor shape to resize/resize feature
+            # get WM_NCHITTEST message
+            # more info - https://learn.microsoft.com/ko-kr/windows/win32/inputdev/wm-nchittest
+            if msg.message == win32con.WM_NCHITTEST:
+                if self._resizable:
+                    pos = QCursor.pos()
+                    x = pos.x() - self.x()
+                    y = pos.y() - self.y()
+
+                    w, h = self.width(), self.height()
+
+                    x1 = x < self._border_width
+                    x2 = x > w - self._border_width
+                    y1 = y < self._border_width
+                    y2 = y > h - self._border_width
+
+                    if x1 and y1:
+                        return True, win32con.HTTOPLEFT
+                    elif x2 and y2:
+                        return True, win32con.HTBOTTOMRIGHT
+                    elif x2 and y1:
+                        return True, win32con.HTTOPRIGHT
+                    elif x1 and y2:
+                        return True, win32con.HTBOTTOMLEFT
+                    elif y1:
+                        return True, win32con.HTTOP
+                    elif y2:
+                        return True, win32con.HTBOTTOM
+                    elif x1:
+                        return True, win32con.HTLEFT
+                    elif x2:
+                        return True, win32con.HTRIGHT
+            # maximize/minimize/full screen feature
+            # get WM_NCCALCSIZE message
+            # more info - https://learn.microsoft.com/ko-kr/windows/win32/winmsg/wm-nccalcsize
+            elif msg.message == win32con.WM_NCCALCSIZE:
+                if msg.wParam:
+                    rect = cast(msg.lParam, LPNCCALCSIZE_PARAMS).contents.rgrc[0]
+                else:
+                    rect = cast(msg.lParam, LPRECT).contents
+
+                max_f = win32utils.isMaximized(msg.hWnd)
+                full_f = win32utils.isFullScreen(msg.hWnd)
+
+                # adjust the size of window
+                if max_f and not full_f:
+                    thickness = win32utils.getResizeBorderThickness(msg.hWnd)
+                    rect.top += thickness
+                    rect.left += thickness
+                    rect.right -= thickness
+                    rect.bottom -= thickness
+
+                # for auto-hide taskbar
+                if (max_f or full_f) and win32utils.Taskbar.isAutoHide():
+                    position = win32utils.Taskbar.getPosition(msg.hWnd)
+                    if position == win32utils.Taskbar.LEFT:
+                        rect.top += win32utils.Taskbar.AUTO_HIDE_THICKNESS
+                    elif position == win32utils.Taskbar.BOTTOM:
+                        rect.bottom -= win32utils.Taskbar.AUTO_HIDE_THICKNESS
+                    elif position == win32utils.Taskbar.LEFT:
+                        rect.left += win32utils.Taskbar.AUTO_HIDE_THICKNESS
+                    elif position == win32utils.Taskbar.RIGHT:
+                        rect.right -= win32utils.Taskbar.AUTO_HIDE_THICKNESS
+
+                result = 0 if not msg.wParam else win32con.WVR_REDRAW
+                return True, result
+        return super().nativeEvent(e, message)
+
+    def _onScreenChanged(self):
+        hWnd = int(self.windowHandle().winId())
+        win32gui.SetWindowPos(hWnd, None, 0, 0, 0, 0, win32con.SWP_NOMOVE |
+                              win32con.SWP_NOSIZE | win32con.SWP_FRAMECHANGED)
+
+
+class FramelessWidget(BaseWidget):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._initVal()
+        self._initUi()
+
+
+class FramelessDialog(QDialog, BaseWidget):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._initVal()
+        self._initUi()
+
+
+class FramelessMainWindow(QMainWindow, BaseWidget):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._initVal()
+        self._initUi()
+
+

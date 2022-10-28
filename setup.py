@@ -19,6 +19,7 @@ setup(
     long_description_content_type='text/markdown',
     long_description=long_description,
     install_requires=[
-        'PyQt5>=5.15'
+        'PyQt5',
+        'qtpy'
     ]
 )
