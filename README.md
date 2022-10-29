@@ -1,67 +1,175 @@
 # pyqt-frameless-window
 PyQt Frameless Window
 
+## Feature
+* Frameless
+* Using Windows API (for Windows OS effect - shadow, rounded, animation, etc.) 
+* Supports PyQt5, PySide2, PySide6
+* User can make it enable/disable to move, resize
+
+## Note
+I have no macOS and linux so i couldn't manage to support them as well.
+
+Maybe i can use the virtual machine or something to do it.
+
+There is no title bar for Windows! I will make it as soon as possible.
+
 ## Requirements
-* PyQt5 >= 5.15 - to call <a href="https://doc.qt.io/qt-5/qwindow.html#startSystemMove">startSystemMove</a>, <a href="https://doc.qt.io/qt-5/qwindow.html#startSystemResize">startSystemResize</a> which are introduced in Qt 5.15.
+* PyQt5 - Use QtWinExtras to use Windows API feature in Qt (Qt6 doesn't support QtWinExtras anymore, sadly) 
+* qtpy - To use PyQt5, PySide2(Qt version 5), PySide6(Qt version 6)
 
 ## Setup
+
+### New version (using Windows API)
+
 `python -m pip install pyqt-frameless-window`
 
-## Detailed Description
-This is the empty window which has no frame. It looks nothing special, but it has a great feature.
+### Classic version
 
-<b>It can be movable and resizable.</b> That's not the only feature. 
-
-When you place the mouse cursor over the edge of the window, mouse cursor's shape will turn into one of those below based on direction of edge.
-
-<a href="https://doc.qt.io/qt-5/qt.html#CursorShape-enum">CursorShape in Qt Documentations</a>
-* Qt.SizeVerCursor
-* Qt.SizeHorCursor
-* Qt.SizeBDiagCursor
-* Qt.SizeFDiagCursor
-
-The window's minimum size is set to inner widget's recommended minimum size.
-
-You can use this as a parent class if you want to make movable, resizable frameless window. This is no use on its own.
-
-If you want to customize the title bar easily than use <a href="https://github.com/yjg30737/pyqt-custom-titlebar-setter">pyqt-custom-titlebar-setter</a>, which also uses the pyqt-frameless-window.
-
-If you don't need any title bar or min/max/close buttons or something like that, just use this as a parent class of your widget.
-
-It can expand vertically when double-clicking the top or bottom edges of the window. Minor bug still remains, but it is not fatal at all. 
+`python -m pip install pyqt-frameless-window==0.0.61`
 
 ## Method Overview
 * `setResizable(f: bool)` - Set resizable/none-resizable
 * `isResizable() -> bool` - Check if window is resizable or not
 * `setPressToMove(f: bool)` - Set movable/non-movable
 * `isPressToMove() -> bool` - Check if window is movable or not
-* `setMargin(margin: int)` - Set the margin which allows cursor to change its shape to resize form
-* `setFrameColor(color)` - Set the background color. `color` argument type can be both `QColor` and `str`.
-* `getFrameColor -> QColor` - Get the background color.
-* `setVerticalExpandedEnabled(f: bool)` - Make it able to expand vertically when double-clicking the top or bottom edges of the window.
 
 ## Example
-Code Sample
+### PyQt5 Code Sample
 ```python
-from PyQt5.QtWidgets import QApplication
-from pyqt_frameless_window import FramelessWindow
+import sys
+
+from pyqt_frameless_window import FramelessDialog
+from PyQt5.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, \
+    QTextBrowser
+
+
+class Window(FramelessDialog):
+    def __init__(self):
+        super().__init__()
+        self.__initUi()
+
+    def __initUi(self):
+        self.setWindowTitle('Basic Window Example')
+
+        self.__minBtn = QPushButton('Min')
+        self.__maxBtn = QPushButton('Max')
+        self.__maxBtn.setCheckable(True)
+        self.__fullScreenBtn = QPushButton('FullScreen')
+        self.__fullScreenBtn.setCheckable(True)
+        self.__closeBtn = QPushButton('Close')
+
+        self.__minBtn.clicked.connect(self.showMinimized)
+        self.__maxBtn.toggled.connect(self.__maximize)
+        self.__fullScreenBtn.toggled.connect(self.__fullScreen)
+        self.__closeBtn.clicked.connect(self.close)
+
+        lay = QHBoxLayout()
+        lay.addWidget(self.__fullScreenBtn)
+        lay.addWidget(self.__minBtn)
+        lay.addWidget(self.__maxBtn)
+        lay.addWidget(self.__closeBtn)
+        lay.setSpacing(0)
+
+        topWidget = QWidget()
+        topWidget.setLayout(lay)
+
+        lay = QVBoxLayout()
+        lay.addWidget(topWidget)
+        lay.addWidget(QTextBrowser())
+
+        self.setLayout(lay)
+
+    def __maximize(self, f):
+        if f:
+            self.showMaximized()
+        else:
+            self.showNormal()
+
+    def __fullScreen(self, f):
+        if f:
+            self.showFullScreen()
+        else:
+            self.showNormal()
 
 
 if __name__ == "__main__":
-    import sys
-
     app = QApplication(sys.argv)
-    ex = FramelessWindow()
-    ex.show()
-    sys.exit(app.exec_())
+    window = Window()
+    window.show()
+    sys.exit(app.exec())
+```
+
+### PySide6 Code Sample
+```python
+import sys
+
+# IMPORTANT!!!!!!!!!
+# to prevent the "QWidget: Must construct a QApplication before a QWidget" error, you should put the code below
+from PySide6.QtCore import Qt
+
+from pyqt_frameless_window import FramelessDialog
+from PySide6.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QTabWidget, \
+    QTextBrowser
+
+
+class Window(FramelessDialog):
+    def __init__(self):
+        super().__init__()
+        self.__initUi()
+
+    def __initUi(self):
+        self.setWindowTitle('Settings')
+
+        self.__widget = QTextBrowser()
+
+        topWidget = QTabWidget()
+        topWidget.addTab(self.__widget, 'Timer')
+
+        self.__okBtn = QPushButton()
+        self.__okBtn.clicked.connect(self.showNormal)
+        self.__okBtn.setText('OK')
+
+        closeBtn = QPushButton()
+        closeBtn.clicked.connect(self.showMaximized)
+        closeBtn.setText('Cancel')
+
+        lay = QHBoxLayout()
+        lay.addWidget(self.__okBtn)
+        lay.addWidget(closeBtn)
+        lay.setContentsMargins(0, 0, 0, 0)
+
+        bottomWidget = QWidget()
+        bottomWidget.setLayout(lay)
+
+        lay = QVBoxLayout()
+        lay.addWidget(topWidget)
+        lay.addWidget(bottomWidget)
+
+        self.setLayout(lay)
+
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_F11:
+            if self.isFullScreen():
+                self.showNormal()
+            else:
+                self.showFullScreen()
+        return super().keyPressEvent(e)
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec())
 ```
 
 Result
 
-![image](https://user-images.githubusercontent.com/55078043/151485588-eea83a1b-7150-4a37-b0f1-6891d5f3da1f.png)
+![image](https://user-images.githubusercontent.com/55078043/198822265-c427574a-6595-43a1-9a2c-30359368f1b2.png)
 
 Try to move and resize it.
 
 ## See Also
-* <a href="https://github.com/yjg30737/pyqt-shadow-frame-window-example">pyqt-shadow-frame-window-example</a> - Frameless window feature + rounded corner and shadow effect.
 
+<a href="https://github.com/yjg30737/pyqt-frameless-window/tree/b84dd1ba421aa7f3f940229ce6379611380f5e35">Classic version README</a> - not using Windows API, qtpy, just good old PyQt5. Enable to resize and move as always. (clunky in Windows though) 
