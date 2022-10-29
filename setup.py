@@ -14,7 +14,7 @@ setup(
     author_email='yjg30737@gmail.com',
     license='MIT',
     packages=find_packages(),
-    description="PyQt frameless window to inherit a variety of frameless widget",
+    description="PyQt(+PySide) Frameless Window",
     url='https://github.com/yjg30737/pyqt-frameless-window.git',
     long_description_content_type='text/markdown',
     long_description=long_description,
