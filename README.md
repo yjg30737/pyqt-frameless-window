@@ -9,7 +9,7 @@ PyQt(+PySide) Frameless Window
 * Supports QWidget, QDialog, QMainWindow
 
 ## Note
-I have no macOS and linux so i couldn't manage to support them as well.
+I have no macOS and linux to test so i couldn't manage to support them as well.
 
 Maybe i can use the virtual machine or something to do it.
 
