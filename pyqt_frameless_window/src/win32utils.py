@@ -43,8 +43,7 @@ def getResizeBorderThickness(hWnd):
     if not window:
         return 0
 
-    result = win32api.GetSystemMetrics(
-        win32con.SM_CXSIZEFRAME) + win32api.GetSystemMetrics(92)
+    result = win32api.GetSystemMetrics(win32con.SM_CXSIZEFRAME) + win32api.GetSystemMetrics(92)
 
     if result > 0:
         return result

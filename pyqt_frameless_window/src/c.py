@@ -1,6 +1,7 @@
 from ctypes import POINTER, Structure, c_int
 from ctypes.wintypes import HWND, RECT, UINT
 
+
 class MARGINS(Structure):
     _fields_ = [
         ("cxLeftWidth",     c_int),
@@ -8,6 +9,7 @@ class MARGINS(Structure):
         ("cyTopHeight",     c_int),
         ("cyBottomHeight",  c_int),
     ]
+
 
 class PWINDOWPOS(Structure):
     _fields_ = [
@@ -20,10 +22,12 @@ class PWINDOWPOS(Structure):
         ('flags',           UINT)
     ]
 
+
 class NCCALCSIZE_PARAMS(Structure):
     _fields_ = [
         ('rgrc', RECT*3),
         ('lppos', POINTER(PWINDOWPOS))
     ]
+
 
 LPNCCALCSIZE_PARAMS = POINTER(NCCALCSIZE_PARAMS)

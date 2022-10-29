@@ -1,0 +1,2 @@
+qtpy
+win32gui
