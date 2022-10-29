@@ -6,6 +6,7 @@ PyQt Frameless Window
 * Using Windows API (for Windows OS effect - shadow, rounded, animation, etc.) 
 * Supports PyQt5, PySide2, PySide6
 * User can make it enable/disable to move, resize
+* Supports QWidget, QDialog, QMainWindow
 
 ## Note
 I have no macOS and linux so i couldn't manage to support them as well.
@@ -28,11 +29,22 @@ There is no title bar for Windows! I will make it as soon as possible.
 
 `python -m pip install pyqt-frameless-window==0.0.61`
 
+## Class Overview
+* FramelessWidget - frameless QWidget
+* FramelessDialog - frameless QDialog
+* FramelessMainWindow - frameless QMainWindow
+
 ## Method Overview
+### for Windows & The Others
 * `setResizable(f: bool)` - Set resizable/none-resizable
 * `isResizable() -> bool` - Check if window is resizable or not
 * `setPressToMove(f: bool)` - Set movable/non-movable
 * `isPressToMove() -> bool` - Check if window is movable or not
+### The Others
+* `setMargin(margin: int)` - Set the margin which allows cursor to change its shape to resize form
+* `setFrameColor(color)` - Set the background color. color argument type can be both QColor and str.
+* `getFrameColor` -> QColor - Get the background color.
+* `setVerticalExpandedEnabled(f: bool)` - Make it able to expand vertically when double-clicking the top or bottom edges of the window.
 
 ## Example
 ### PyQt5 Code Sample
