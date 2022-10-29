@@ -35,7 +35,7 @@ There is no title bar for Windows! I will make it as soon as possible.
 * FramelessMainWindow - frameless QMainWindow
 
 ## Method Overview
-### for Windows & The Others
+### For Windows & The Others
 * `setResizable(f: bool)` - Set resizable/none-resizable
 * `isResizable() -> bool` - Check if window is resizable or not
 * `setPressToMove(f: bool)` - Set movable/non-movable
