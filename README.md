@@ -1,5 +1,5 @@
 # pyqt-frameless-window
-PyQt Frameless Window
+PyQt(+PySide) Frameless Window
 
 ## Feature
 * Frameless
