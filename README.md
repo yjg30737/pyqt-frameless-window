@@ -13,6 +13,8 @@ I have no macOS and linux so i couldn't manage to support them as well.
 
 Maybe i can use the virtual machine or something to do it.
 
+I strongly recommend Classic Version if your OS is not Windows.
+
 There is no title bar for Windows! I will make it as soon as possible.
 
 ## Requirements
