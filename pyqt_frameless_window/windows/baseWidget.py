@@ -5,13 +5,13 @@ import win32gui
 
 from qtpy.QtCore import Qt
 from qtpy.QtGui import QCursor
-from qtpy.QtWidgets import QWidget, QMainWindow, QDialog
+from qtpy.QtWidgets import QWidget
 
 from ctypes.wintypes import LPRECT, MSG
 
-from pyqt_frameless_window.src import win32utils
-from pyqt_frameless_window.src.c import LPNCCALCSIZE_PARAMS
-from pyqt_frameless_window.src.windowEffect import WindowsEffectHelper
+from pyqt_frameless_window.windows.src import win32utils
+from pyqt_frameless_window.windows.src.c import LPNCCALCSIZE_PARAMS
+from pyqt_frameless_window.windows.src.windowEffect import WindowsEffectHelper
 
 
 class BaseWidget(QWidget):
@@ -138,24 +138,6 @@ class BaseWidget(QWidget):
                               win32con.SWP_NOSIZE | win32con.SWP_FRAMECHANGED)
 
 
-class FramelessWidget(BaseWidget):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._initVal()
-        self._initUi()
 
-
-class FramelessDialog(QDialog, BaseWidget):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._initVal()
-        self._initUi()
-
-
-class FramelessMainWindow(QMainWindow, BaseWidget):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._initVal()
-        self._initUi()
 
 

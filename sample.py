@@ -3,7 +3,7 @@ import sys
 # to prevent the "QWidget: Must construct a QApplication before a QWidget" error
 from PySide6.QtCore import Qt
 
-from pyqt_frameless_window.framelessWindow import FramelessDialog
+from pyqt_frameless_window import FramelessDialog
 from PySide6.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QTabWidget, \
     QTextBrowser
 
