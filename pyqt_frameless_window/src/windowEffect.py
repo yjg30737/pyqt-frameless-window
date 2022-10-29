@@ -3,7 +3,7 @@ from ctypes import byref, windll
 import win32con
 import win32gui
 
-from .cEnumStructure import MARGINS
+from .c import MARGINS
 
 
 class WindowsEffectHelper:

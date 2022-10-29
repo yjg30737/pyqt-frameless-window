@@ -10,7 +10,7 @@ from qtpy.QtWidgets import QWidget, QMainWindow, QDialog
 from ctypes.wintypes import LPRECT, MSG
 
 from pyqt_frameless_window.src import win32utils
-from pyqt_frameless_window.src.cEnumStructure import LPNCCALCSIZE_PARAMS
+from pyqt_frameless_window.src.c import LPNCCALCSIZE_PARAMS
 from pyqt_frameless_window.src.windowEffect import WindowsEffectHelper
 
 
