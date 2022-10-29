@@ -13,7 +13,7 @@ I have no macOS and Linux to test so i couldn't manage to support them as well.
 
 Maybe i can use the virtual machine or something to do it.
 
-I strongly recommend Classic Version if your OS is not Windows.
+I strongly recommend legacy version if your OS is not Windows.
 
 There is no title bar for Windows! I will make it as soon as possible.
 
@@ -28,7 +28,7 @@ There is no title bar for Windows! I will make it as soon as possible.
 
 `python -m pip install pyqt-frameless-window`
 
-### Classic version
+### Legacy version
 
 `python -m pip install pyqt-frameless-window==0.0.61`
 
@@ -194,4 +194,4 @@ Note: I tested in Windows 11, PySide6.
 
 ## See Also
 
-<a href="https://github.com/yjg30737/pyqt-frameless-window/tree/b84dd1ba421aa7f3f940229ce6379611380f5e35">Classic version README</a> - not using Windows API, qtpy, just good old PyQt5. Enable to resize and move as always. (clunky in Windows though) 
+<a href="https://github.com/yjg30737/pyqt-frameless-window/tree/b84dd1ba421aa7f3f940229ce6379611380f5e35">Legacy version(0.0.61) README</a> - not using Windows API, qtpy, just good old PyQt5. Enable to resize and move as always. (clunky in Windows though) 
