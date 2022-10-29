@@ -19,6 +19,7 @@ class WindowsEffectHelper:
 
     # set fancy effect
     def setBasicEffect(self, hWnd):
+        hWnd = int(hWnd)
         margins = MARGINS(-1, -1, -1, -1)
         self.__dwmExtendFrameIntoClientArea(hWnd, byref(margins))
 
