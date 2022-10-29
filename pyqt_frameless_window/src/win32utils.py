@@ -52,7 +52,6 @@ def getResizeBorderThickness(hWnd):
     thickness = 8 if QtWin.isCompositionEnabled() else 4
     return round(thickness*window.devicePixelRatio())
 
-
 def findWindow(hWnd):
     if not hWnd:
         return

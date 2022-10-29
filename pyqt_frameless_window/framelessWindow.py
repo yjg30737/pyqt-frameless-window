@@ -74,27 +74,28 @@ class BaseWidget(QWidget):
 
                     w, h = self.width(), self.height()
 
-                    x1 = x < self._border_width
-                    x2 = x > w - self._border_width
-                    y1 = y < self._border_width
-                    y2 = y > h - self._border_width
+                    left = x < self._border_width
+                    top = y < self._border_width
+                    right = x > w - self._border_width
+                    bottom = y > h - self._border_width
 
-                    if x1 and y1:
+                    if top and left:
                         return True, win32con.HTTOPLEFT
-                    elif x2 and y2:
-                        return True, win32con.HTBOTTOMRIGHT
-                    elif x2 and y1:
+                    elif top and right:
                         return True, win32con.HTTOPRIGHT
-                    elif x1 and y2:
+                    elif bottom and left:
                         return True, win32con.HTBOTTOMLEFT
-                    elif y1:
-                        return True, win32con.HTTOP
-                    elif y2:
-                        return True, win32con.HTBOTTOM
-                    elif x1:
+                    elif bottom and right:
+                        return True, win32con.HTBOTTOMRIGHT
+                    elif left:
                         return True, win32con.HTLEFT
-                    elif x2:
+                    elif top:
+                        return True, win32con.HTTOP
+                    elif right:
                         return True, win32con.HTRIGHT
+                    elif bottom:
+                        return True, win32con.HTBOTTOM
+
             # maximize/minimize/full screen feature
             # get WM_NCCALCSIZE message
             # more info - https://learn.microsoft.com/ko-kr/windows/win32/winmsg/wm-nccalcsize

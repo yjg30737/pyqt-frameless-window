@@ -20,6 +20,7 @@ setup(
     long_description=long_description,
     install_requires=[
         'PyQt5',
+        'win32gui',
         'qtpy'
     ]
 )
