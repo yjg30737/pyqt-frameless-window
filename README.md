@@ -109,7 +109,7 @@ import sys
 from PySide6.QtCore import Qt
 
 from pyqt_frameless_window import FramelessDialog
-from PySide6.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QTabWidget, \
+from PySide6.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, \
     QTextBrowser
 
 
@@ -119,42 +119,47 @@ class Window(FramelessDialog):
         self.__initUi()
 
     def __initUi(self):
-        self.setWindowTitle('Settings')
+        self.setWindowTitle('Basic Window Example')
 
-        self.__widget = QTextBrowser()
+        self.__minBtn = QPushButton('Min')
+        self.__maxBtn = QPushButton('Max')
+        self.__maxBtn.setCheckable(True)
+        self.__fullScreenBtn = QPushButton('FullScreen')
+        self.__fullScreenBtn.setCheckable(True)
+        self.__closeBtn = QPushButton('Close')
 
-        topWidget = QTabWidget()
-        topWidget.addTab(self.__widget, 'Timer')
-
-        self.__okBtn = QPushButton()
-        self.__okBtn.clicked.connect(self.showNormal)
-        self.__okBtn.setText('OK')
-
-        closeBtn = QPushButton()
-        closeBtn.clicked.connect(self.showMaximized)
-        closeBtn.setText('Cancel')
+        self.__minBtn.clicked.connect(self.showMinimized)
+        self.__maxBtn.toggled.connect(self.__maximize)
+        self.__fullScreenBtn.toggled.connect(self.__fullScreen)
+        self.__closeBtn.clicked.connect(self.close)
 
         lay = QHBoxLayout()
-        lay.addWidget(self.__okBtn)
-        lay.addWidget(closeBtn)
-        lay.setContentsMargins(0, 0, 0, 0)
+        lay.addWidget(self.__fullScreenBtn)
+        lay.addWidget(self.__minBtn)
+        lay.addWidget(self.__maxBtn)
+        lay.addWidget(self.__closeBtn)
+        lay.setSpacing(0)
 
-        bottomWidget = QWidget()
-        bottomWidget.setLayout(lay)
+        topWidget = QWidget()
+        topWidget.setLayout(lay)
 
         lay = QVBoxLayout()
         lay.addWidget(topWidget)
-        lay.addWidget(bottomWidget)
+        lay.addWidget(QTextBrowser())
 
         self.setLayout(lay)
 
-    def keyPressEvent(self, e):
-        if e.key() == Qt.Key_F11:
-            if self.isFullScreen():
-                self.showNormal()
-            else:
-                self.showFullScreen()
-        return super().keyPressEvent(e)
+    def __maximize(self, f):
+        if f:
+            self.showMaximized()
+        else:
+            self.showNormal()
+
+    def __fullScreen(self, f):
+        if f:
+            self.showFullScreen()
+        else:
+            self.showNormal()
 
 
 if __name__ == "__main__":
