@@ -20,6 +20,7 @@ There is no title bar for Windows! I will make it as soon as possible.
 ## Requirements
 * PyQt5 - Use QtWinExtras to use Windows API feature in Qt (Qt6 doesn't support QtWinExtras anymore, sadly) 
 * qtpy - To use PyQt5, PySide2(Qt version 5), PySide6(Qt version 6)
+* pywin32 - For using Windows API feature
 
 ## Setup
 
