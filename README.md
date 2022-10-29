@@ -162,13 +162,15 @@ if __name__ == "__main__":
     window = Window()
     window.show()
     sys.exit(app.exec())
-```
+``` 
 
-Result
+### Result
 
 ![image](https://user-images.githubusercontent.com/55078043/198822265-c427574a-6595-43a1-9a2c-30359368f1b2.png)
 
 Try to move and resize it.
+
+Note: I tested in Windows 11, PySide6.
 
 ## See Also
 
