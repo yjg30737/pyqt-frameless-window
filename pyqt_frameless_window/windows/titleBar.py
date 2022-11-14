@@ -1,15 +1,26 @@
-from qtpy.QtGui import QFont
 from qtpy.QtCore import Qt
-from qtpy.QtWidgets import QWidget, QPushButton, QHBoxLayout
+from qtpy.QtGui import QIcon
+from qtpy.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout, QSpacerItem, QSizePolicy
 
 
 class TitleBar(QWidget):
-    def __init__(self, base_widget=None, hint: list = ['full_screen', 'min', 'max', 'close']):
+    def __init__(self, base_widget=None, hint=None):
         super().__init__(base_widget)
+        if hint is None:
+            hint = ['min', 'max', 'close']
         self.__initVal(hint)
         self.__initUi()
 
     def __initVal(self, hint):
+        # TODO
+        # icon label
+        self.__iconLbl = QLabel()
+
+        # title label
+        self.__titleLbl = QLabel()
+        self.__titleLbl.setText('WINDOW ;)')
+
+        # buttons
         self.__fullScreenBtn = QPushButton('▣')
         self.__minBtn = QPushButton('🗕')
         self.__maxBtn = QPushButton('🗖')
@@ -37,6 +48,10 @@ class TitleBar(QWidget):
         lay.setContentsMargins(0, 0, 0, 0)
         lay.setSpacing(0)
         lay.setAlignment(Qt.AlignRight)
+
+        lay.addWidget(self.__iconLbl)
+        lay.addWidget(self.__titleLbl)
+        lay.addSpacerItem(QSpacerItem(10, 10, QSizePolicy.MinimumExpanding))
 
         for k in self.__hint:
             if k in self.__btn_dict:
