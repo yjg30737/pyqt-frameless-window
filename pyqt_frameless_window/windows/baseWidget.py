@@ -138,6 +138,9 @@ class BaseWidget(QWidget):
                               win32con.SWP_NOSIZE | win32con.SWP_FRAMECHANGED)
 
 
+    def setWindowIcon(self, icon) -> None:
+        super().setWindowIcon(icon)
 
-
+    def setWindowTitle(self, title: str) -> None:
+        super().setWindowTitle(title)
 

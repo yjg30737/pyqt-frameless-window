@@ -1,5 +1,7 @@
+import os
+
 from qtpy.QtCore import Qt
-from qtpy.QtGui import QIcon
+from qtpy.QtGui import QIcon, QPixmap, QImage
 from qtpy.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout, QSpacerItem, QSizePolicy
 
 
@@ -13,12 +15,16 @@ class TitleBar(QWidget):
 
     def __initVal(self, hint):
         # TODO
-        # icon label
+        # iconBtn
         self.__iconLbl = QLabel()
+
+        icon = QIcon()
+        icon.addFile(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'Stark-icon.png'))
+        self.__iconLbl.setPixmap(icon.pixmap(18, 18))
 
         # title label
         self.__titleLbl = QLabel()
-        self.__titleLbl.setText('WINDOW ;)')
+        self.__titleLbl.setText('Winter Is Coming')
 
         # buttons
         self.__fullScreenBtn = QPushButton('▣')
@@ -26,7 +32,6 @@ class TitleBar(QWidget):
         self.__maxBtn = QPushButton('🗖')
         self.__closeBtn = QPushButton('🗙')
 
-        self.__maxBtn.setCheckable(True)
         self.__fullScreenBtn.setCheckable(True)
 
         self.__btn_dict = {
@@ -83,6 +88,15 @@ class TitleBar(QWidget):
                               'QPushButton:checked {'
                               'background-color: #ddd;'
                               '}')
+
+        # TODO refactoring
+        self.__iconLbl.setStyleSheet('QLabel {'
+                                     'margin-left: 4;'
+                                     '}')
+
+        self.__titleLbl.setStyleSheet('QLabel {'
+                                     'margin-left: 4;'
+                                     '}')
 
     def __maximize(self):
         if self.window().isMaximized():
