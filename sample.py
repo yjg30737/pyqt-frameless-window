@@ -2,13 +2,13 @@ import sys
 
 # IMPORTANT!!!!!!!!!
 # to prevent the "QWidget: Must construct a QApplication before a QWidget" error, you should put the code below
-from PySide6.QtCore import Qt
+from PyQt5.QtCore import Qt
 
 from pyqt_frameless_window import FramelessDialog
-from PySide6.QtWidgets import QApplication, QVBoxLayout, \
+from PyQt5.QtWidgets import QApplication, QVBoxLayout, \
     QTextBrowser
 
-from pyqt_frameless_window.titleBar import TitleBar
+from pyqt_frameless_window.windows.titleBar import TitleBar
 
 
 class Window(FramelessDialog):
@@ -26,22 +26,6 @@ class Window(FramelessDialog):
         lay.addWidget(QTextBrowser())
 
         self.setLayout(lay)
-
-        self.installEventFilter(self)
-
-        titleBar.raise_()
-
-    def __maximize(self, f):
-        if f:
-            self.showMaximized()
-        else:
-            self.showNormal()
-
-    def __fullScreen(self, f):
-        if f:
-            self.showFullScreen()
-        else:
-            self.showNormal()
 
 
 if __name__ == "__main__":

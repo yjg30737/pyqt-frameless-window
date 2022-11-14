@@ -1,5 +1,6 @@
-from qtpy.QtWidgets import QWidget, QPushButton, QHBoxLayout
+
 from qtpy.QtCore import Qt
+from qtpy.QtWidgets import QWidget, QPushButton, QHBoxLayout
 
 
 class TitleBar(QWidget):
