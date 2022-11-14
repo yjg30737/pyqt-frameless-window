@@ -7,6 +7,7 @@ PyQt(+PySide) Frameless Window
 * Supports PyQt5, PySide2, PySide6
 * User can make it enable/disable to move, resize
 * Supports QWidget, QDialog, QMainWindow
+* Support title bar (very basic-looking buttons in v0.0.73)
 
 ## Note
 I have no macOS and Linux to test so i couldn't manage to support them as well.
@@ -14,8 +15,6 @@ I have no macOS and Linux to test so i couldn't manage to support them as well.
 Maybe i can use the virtual machine or something to do it.
 
 I strongly recommend legacy version if your OS is not Windows.
-
-There is no title bar for Windows! I will make it as soon as possible.
 
 ## Requirements
 * PyQt5 - Use QtWinExtras to use Windows API feature in Qt (Qt6 doesn't support QtWinExtras anymore, sadly) 
@@ -73,7 +72,7 @@ class Window(FramelessDialog):
     def __initUi(self):
         self.setWindowTitle('Basic Window Example')
 
-        titleBar = TitleBar(self)
+        titleBar = TitleBar(self) # for showing title bar as one of the widget. If you don't want the title bar, don't include this.
 
         lay = QVBoxLayout()
         lay.addWidget(titleBar)
@@ -116,7 +115,7 @@ class Window(FramelessDialog):
     def __initUi(self):
         self.setWindowTitle('Basic Window Example')
 
-        titleBar = TitleBar(self)
+        titleBar = TitleBar(self) # for showing title bar as one of the widget. If you don't want the title bar, don't include this.
 
         lay = QVBoxLayout()
         lay.addWidget(titleBar)
