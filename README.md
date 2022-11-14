@@ -94,10 +94,6 @@ import sys
 
 # IMPORTANT!!!!!!!!!
 # to prevent the "QWidget: Must construct a QApplication before a QWidget" error, you should put the code below
-import sys
-
-# IMPORTANT!!!!!!!!!
-# to prevent the "QWidget: Must construct a QApplication before a QWidget" error, you should put the code below
 from PySide6.QtCore import Qt
 
 from pyqt_frameless_window import FramelessDialog
