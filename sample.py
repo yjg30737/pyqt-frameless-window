@@ -5,8 +5,10 @@ import sys
 from PySide6.QtCore import Qt
 
 from pyqt_frameless_window import FramelessDialog
-from PySide6.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, \
+from PySide6.QtWidgets import QApplication, QVBoxLayout, \
     QTextBrowser
+
+from pyqt_frameless_window.titleBar import TitleBar
 
 
 class Window(FramelessDialog):
@@ -17,33 +19,17 @@ class Window(FramelessDialog):
     def __initUi(self):
         self.setWindowTitle('Basic Window Example')
 
-        self.__minBtn = QPushButton('Min')
-        self.__maxBtn = QPushButton('Max')
-        self.__maxBtn.setCheckable(True)
-        self.__fullScreenBtn = QPushButton('FullScreen')
-        self.__fullScreenBtn.setCheckable(True)
-        self.__closeBtn = QPushButton('Close')
-
-        self.__minBtn.clicked.connect(self.showMinimized)
-        self.__maxBtn.toggled.connect(self.__maximize)
-        self.__fullScreenBtn.toggled.connect(self.__fullScreen)
-        self.__closeBtn.clicked.connect(self.close)
-
-        lay = QHBoxLayout()
-        lay.addWidget(self.__fullScreenBtn)
-        lay.addWidget(self.__minBtn)
-        lay.addWidget(self.__maxBtn)
-        lay.addWidget(self.__closeBtn)
-        lay.setSpacing(0)
-
-        topWidget = QWidget()
-        topWidget.setLayout(lay)
+        titleBar = TitleBar(self)
 
         lay = QVBoxLayout()
-        lay.addWidget(topWidget)
+        lay.addWidget(titleBar)
         lay.addWidget(QTextBrowser())
 
         self.setLayout(lay)
+
+        self.installEventFilter(self)
+
+        titleBar.raise_()
 
     def __maximize(self, f):
         if f:
