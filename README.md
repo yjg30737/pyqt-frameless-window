@@ -27,6 +27,8 @@ I strongly recommend legacy version if your OS is not Windows.
 
 `python -m pip install pyqt-frameless-window`
 
+<b>(For new version) Recommend to clone rather than installing with pip. Still working!</b>
+
 ### Legacy version
 
 `python -m pip install pyqt-frameless-window==0.0.61`
@@ -129,7 +131,7 @@ if __name__ == "__main__":
 
 ### Result
 
-![image](https://user-images.githubusercontent.com/55078043/198822265-c427574a-6595-43a1-9a2c-30359368f1b2.png)
+![image](https://user-images.githubusercontent.com/55078043/201617865-a613c415-61df-4402-a420-7c15ce3bb868.png)
 
 Try to move and resize it.
 
