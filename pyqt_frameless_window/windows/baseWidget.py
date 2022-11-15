@@ -4,7 +4,7 @@ import win32con
 import win32gui
 
 from qtpy.QtCore import Qt
-from qtpy.QtGui import QCursor
+from qtpy.QtGui import QCursor, QIcon
 from qtpy.QtWidgets import QWidget, QVBoxLayout
 
 from ctypes.wintypes import LPRECT, MSG
@@ -146,10 +146,13 @@ class BaseWidget(QWidget):
         win32gui.SetWindowPos(hWnd, None, 0, 0, 0, 0, win32con.SWP_NOMOVE |
                               win32con.SWP_NOSIZE | win32con.SWP_FRAMECHANGED)
 
-
-    def setWindowIcon(self, icon) -> None:
+    def setWindowIcon(self, filename):
+        icon = QIcon()
+        icon.addFile(filename)
+        self._titleBar.setIcon(icon)
         super().setWindowIcon(icon)
 
     def setWindowTitle(self, title: str) -> None:
         super().setWindowTitle(title)
+        self._titleBar.setTitle(title)
 

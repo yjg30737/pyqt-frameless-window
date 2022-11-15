@@ -17,7 +17,8 @@ class Window(FramelessDialog):
         self.__initUi()
 
     def __initUi(self):
-        self.setWindowTitle('Basic Window Example')
+        self.setWindowTitle('Winter Is Coming')
+        self.setWindowIcon('./Stark-icon.png')
 
         lay = self.layout()
         lay.addWidget(QTextBrowser())

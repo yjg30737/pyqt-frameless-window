@@ -18,13 +18,8 @@ class TitleBar(QWidget):
         # iconBtn
         self.__iconLbl = QLabel()
 
-        icon = QIcon()
-        icon.addFile(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'Stark-icon.png'))
-        self.__iconLbl.setPixmap(icon.pixmap(18, 18))
-
         # title label
         self.__titleLbl = QLabel()
-        self.__titleLbl.setText('Winter Is Coming')
 
         # buttons
         self.__fullScreenBtn = QPushButton('▣')
@@ -126,3 +121,9 @@ class TitleBar(QWidget):
                     self.__maxBtn.setText('🗖')
 
         return super().eventFilter(obj, e)
+
+    def setIcon(self, icon):
+        self.__iconLbl.setPixmap(icon.pixmap(18, 18))
+
+    def setTitle(self, title):
+        self.__titleLbl.setText(title)
