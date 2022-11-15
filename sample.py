@@ -19,14 +19,8 @@ class Window(FramelessDialog):
     def __initUi(self):
         self.setWindowTitle('Basic Window Example')
 
-        titleBar = TitleBar(self)
-
-        lay = QVBoxLayout()
-        lay.addWidget(titleBar)
+        lay = self.layout()
         lay.addWidget(QTextBrowser())
-        lay.setContentsMargins(0, 0, 0, 0)
-        lay.setSpacing(0)
-
         self.setLayout(lay)
 
 

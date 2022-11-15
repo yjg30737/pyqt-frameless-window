@@ -5,13 +5,14 @@ import win32gui
 
 from qtpy.QtCore import Qt
 from qtpy.QtGui import QCursor
-from qtpy.QtWidgets import QWidget
+from qtpy.QtWidgets import QWidget, QVBoxLayout
 
 from ctypes.wintypes import LPRECT, MSG
 
 from pyqt_frameless_window.windows.src import win32utils
 from pyqt_frameless_window.windows.src.c import LPNCCALCSIZE_PARAMS
 from pyqt_frameless_window.windows.src.windowEffect import WindowsEffectHelper
+from pyqt_frameless_window.windows.titleBar import TitleBar
 
 
 class BaseWidget(QWidget):
@@ -36,6 +37,14 @@ class BaseWidget(QWidget):
         self._windowEffect.setBasicEffect(self.winId())
 
         self.windowHandle().screenChanged.connect(self._onScreenChanged)
+
+        self._titleBar = TitleBar(self)
+
+        lay = QVBoxLayout()
+        lay.addWidget(self._titleBar)
+        lay.setContentsMargins(0, 0, 0, 0)
+        lay.setSpacing(0)
+        self.setLayout(lay)
 
     def mousePressEvent(self, e):
         if e.button() == Qt.LeftButton:

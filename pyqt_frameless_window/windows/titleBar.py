@@ -1,7 +1,7 @@
 import os
 
 from qtpy.QtCore import Qt
-from qtpy.QtGui import QIcon, QPixmap, QImage
+from qtpy.QtGui import QIcon
 from qtpy.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout, QSpacerItem, QSizePolicy
 
 
