@@ -54,7 +54,7 @@ I strongly recommend legacy version if your OS is not Windows.
 
 ## Example
 ### PyQt5 Code Sample
-#### FramelessDialog, FramelessWidget
+#### FramelessDialog
 ```python
 import sys
 
@@ -86,6 +86,9 @@ if __name__ == "__main__":
     window.show()
     sys.exit(app.exec())
 ```
+
+#### FramelessWidget
+Note: FramelessWidget code sample will be identical with FramelessDialog except for its name.
 
 #### FramelessMainWindow
 ```python
@@ -123,7 +126,7 @@ if __name__ == "__main__":
 ```
 
 ### PySide6 Code Sample
-#### FramelessDialog, FramelessWidget
+#### FramelessDialog
 ```python
 import sys
 
