@@ -88,7 +88,7 @@ if __name__ == "__main__":
 ```
 
 #### FramelessWidget
-Note: FramelessWidget code sample will be identical with FramelessDialog except for its name.
+FramelessWidget code sample will be identical with FramelessDialog except for its name.
 
 #### FramelessMainWindow
 ```python
