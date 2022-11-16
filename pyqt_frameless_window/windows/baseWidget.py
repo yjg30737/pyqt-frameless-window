@@ -38,12 +38,6 @@ class BaseWidget(QWidget):
 
         self._titleBar = TitleBar(self)
 
-        lay = QVBoxLayout()
-        lay.addWidget(self._titleBar)
-        lay.setContentsMargins(0, 0, 0, 0)
-        lay.setSpacing(0)
-        self.setLayout(lay)
-
     def mousePressEvent(self, e):
         if e.button() == Qt.LeftButton:
             if self._pressToMove:

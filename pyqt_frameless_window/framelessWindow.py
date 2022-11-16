@@ -1,11 +1,13 @@
 import platform
 
+from pyqt_frameless_window.windows import TitleBar
+
 if platform.system() == 'Windows':
     from pyqt_frameless_window.windows.baseWidget import BaseWidget
 else:
     from pyqt_frameless_window.base.baseWidget import BaseWidget
 
-from qtpy.QtWidgets import QDialog, QMainWindow
+from qtpy.QtWidgets import QDialog, QMainWindow, QVBoxLayout, QWidget
 
 
 class FramelessWidget(BaseWidget):
@@ -14,6 +16,13 @@ class FramelessWidget(BaseWidget):
         self._initVal()
         self._initUi()
 
+    def _initUi(self):
+        super()._initUi()
+        lay = QVBoxLayout()
+        lay.addWidget(self._titleBar)
+        lay.setContentsMargins(0, 0, 0, 0)
+        lay.setSpacing(0)
+        self.setLayout(lay)
 
 class FramelessDialog(QDialog, BaseWidget):
     def __init__(self, *args, **kwargs):
@@ -21,9 +30,29 @@ class FramelessDialog(QDialog, BaseWidget):
         self._initVal()
         self._initUi()
 
+    def _initUi(self):
+        super()._initUi()
+        lay = QVBoxLayout()
+        lay.addWidget(self._titleBar)
+        lay.setContentsMargins(0, 0, 0, 0)
+        lay.setSpacing(0)
+        self.setLayout(lay)
+
 
 class FramelessMainWindow(QMainWindow, BaseWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._initVal()
         self._initUi()
+
+    def _initUi(self):
+        super()._initUi()
+        lay = QVBoxLayout()
+        lay.addWidget(self._titleBar)
+        lay.setContentsMargins(0, 0, 0, 0)
+        lay.setSpacing(0)
+
+        mainWidget = QWidget()
+        mainWidget.setLayout(lay)
+
+        self.setCentralWidget(mainWidget)
