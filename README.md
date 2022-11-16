@@ -49,9 +49,12 @@ I strongly recommend legacy version if your OS is not Windows.
 * `setFrameColor(color)` - Set the background color. color argument type can be both QColor and str.
 * `getFrameColor` -> QColor - Get the background color.
 * `setVerticalExpandedEnabled(f: bool)` - Make it able to expand vertically when double-clicking the top or bottom edges of the window.
+* `setWindowIcon(filename: str)` - Set the icon to the title bar. This method is overriden.
+* `setWindowTitle(title: str)` - Set the title to the title bar. This method is overriden.
 
 ## Example
 ### PyQt5 Code Sample
+#### FramelessDialog
 ```python
 import sys
 
@@ -60,10 +63,7 @@ import sys
 from PyQt5.QtCore import Qt
 
 from pyqt_frameless_window import FramelessDialog
-from PyQt5.QtWidgets import QApplication, QVBoxLayout, \
-    QTextBrowser
-
-from pyqt_frameless_window.windows.titleBar import TitleBar
+from PyQt5.QtWidgets import QApplication, QTextEdit
 
 
 class Window(FramelessDialog):
@@ -72,14 +72,11 @@ class Window(FramelessDialog):
         self.__initUi()
 
     def __initUi(self):
-        self.setWindowTitle('Basic Window Example')
+        self.setWindowTitle('Winter Is Coming')
+        self.setWindowIcon('./Stark-icon.png')
 
-        titleBar = TitleBar(self) # for showing title bar as one of the widget. If you don't want the title bar, don't include this.
-
-        lay = QVBoxLayout()
-        lay.addWidget(titleBar)
-        lay.addWidget(QTextBrowser())
-
+        lay = self.layout()
+        lay.addWidget(QTextEdit())
         self.setLayout(lay)
 
 
@@ -90,7 +87,46 @@ if __name__ == "__main__":
     sys.exit(app.exec())
 ```
 
+#### FramelessWidget
+FramelessWidget code sample will be identical with FramelessDialog except for its name.
+
+#### FramelessMainWindow
+```python
+import sys
+
+# IMPORTANT!!!!!!!!!
+# to prevent the "QWidget: Must construct a QApplication before a QWidget" error, you should put the code below
+from PyQt5.QtCore import Qt
+
+from pyqt_frameless_window import FramelessMainWindow
+from PyQt5.QtWidgets import QApplication, QTextEdit
+
+
+class Window(FramelessMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.__initUi()
+
+    def __initUi(self):
+        self.setWindowTitle('Winter Is Coming')
+        self.setWindowIcon('./Stark-icon.png')
+
+        mainWidget = self.centralWidget()
+        lay = mainWidget.layout()
+        lay.addWidget(QTextEdit())
+        mainWidget.setLayout(lay)
+        self.setCentralWidget(mainWidget)
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec())
+```
+
 ### PySide6 Code Sample
+#### FramelessDialog
 ```python
 import sys
 
@@ -99,10 +135,7 @@ import sys
 from PySide6.QtCore import Qt
 
 from pyqt_frameless_window import FramelessDialog
-from PySide6.QtWidgets import QApplication, QVBoxLayout, \
-    QTextBrowser
-
-from pyqt_frameless_window.windows.titleBar import TitleBar
+from PySide6.QtWidgets import QApplication, QTextEdit
 
 
 class Window(FramelessDialog):
@@ -111,14 +144,11 @@ class Window(FramelessDialog):
         self.__initUi()
 
     def __initUi(self):
-        self.setWindowTitle('Basic Window Example')
+        self.setWindowTitle('Winter Is Coming')
+        self.setWindowIcon('./Stark-icon.png')
 
-        titleBar = TitleBar(self) # for showing title bar as one of the widget. If you don't want the title bar, don't include this.
-
-        lay = QVBoxLayout()
-        lay.addWidget(titleBar)
-        lay.addWidget(QTextBrowser())
-
+        lay = self.layout()
+        lay.addWidget(QTextEdit())
         self.setLayout(lay)
 
 
@@ -127,7 +157,42 @@ if __name__ == "__main__":
     window = Window()
     window.show()
     sys.exit(app.exec())
-``` 
+```
+
+#### FramelessMainWindow
+```python
+import sys
+
+# IMPORTANT!!!!!!!!!
+# to prevent the "QWidget: Must construct a QApplication before a QWidget" error, you should put the code below
+from PySide6.QtCore import Qt
+
+from pyqt_frameless_window import FramelessMainWindow
+from PySide6.QtWidgets import QApplication, QTextEdit
+
+
+class Window(FramelessMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.__initUi()
+
+    def __initUi(self):
+        self.setWindowTitle('Winter Is Coming')
+        self.setWindowIcon('./Stark-icon.png')
+
+        mainWidget = self.centralWidget()
+        lay = mainWidget.layout()
+        lay.addWidget(QTextEdit())
+        mainWidget.setLayout(lay)
+        self.setCentralWidget(mainWidget)
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec())
+```
 
 ### Result
 
@@ -135,8 +200,8 @@ if __name__ == "__main__":
 
 Try to move and resize it.
 
-Note: I tested in Windows 11, PySide6.
+Note: Result image was tested in Windows 11, PySide6.
 
 ## See Also
 
-<a href="https://github.com/yjg30737/pyqt-frameless-window/tree/b84dd1ba421aa7f3f940229ce6379611380f5e35">Legacy version(0.0.61) README</a> - not using Windows API, qtpy, just good old PyQt5. Enable to resize and move as always. (clunky in Windows though) 
+<a href="https://github.com/yjg30737/pyqt-frameless-window/tree/b84dd1ba421aa7f3f940229ce6379611380f5e35">Legacy version(0.0.61) README</a> - not using Windows API, qtpy, just good old PyQt5. Enable to resize and move as always. (clunky in Windows though) Only for PyQt5 by the way.
