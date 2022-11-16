@@ -5,10 +5,7 @@ import sys
 from PySide6.QtCore import Qt
 
 from pyqt_frameless_window import FramelessDialog
-from PySide6.QtWidgets import QApplication, QVBoxLayout, \
-    QTextBrowser
-
-from pyqt_frameless_window.windows.titleBar import TitleBar
+from PySide6.QtWidgets import QApplication, QTextBrowser
 
 
 class Window(FramelessDialog):

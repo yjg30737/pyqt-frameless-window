@@ -1,7 +1,4 @@
-import os
-
 from qtpy.QtCore import Qt
-from qtpy.QtGui import QIcon
 from qtpy.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout, QSpacerItem, QSizePolicy
 
 
@@ -57,14 +54,11 @@ class TitleBar(QWidget):
             if k in self.__btn_dict:
                 lay.addWidget(self.__btn_dict[k])
 
-        self.setLayout(lay)
-
         self._styleInit()
 
-        # raise - helps the button widget not to be blocked by something else
-        self.raise_()
-
         self.window().installEventFilter(self)
+
+        self.setLayout(lay)
 
     def _styleInit(self):
         for btn in self.__btn_dict.values():

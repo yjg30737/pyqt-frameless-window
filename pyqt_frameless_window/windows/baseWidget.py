@@ -46,6 +46,9 @@ class BaseWidget(QWidget):
         lay.setSpacing(0)
         self.setLayout(lay)
 
+        # raise - helps the button widget not to be blocked by something else
+        self._titleBar.raise_()
+
     def mousePressEvent(self, e):
         if e.button() == Qt.LeftButton:
             if self._pressToMove:
