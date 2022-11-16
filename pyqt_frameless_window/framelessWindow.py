@@ -1,4 +1,5 @@
 import platform
+
 if platform.system() == 'Windows':
     from pyqt_frameless_window.windows.baseWidget import BaseWidget
 else:

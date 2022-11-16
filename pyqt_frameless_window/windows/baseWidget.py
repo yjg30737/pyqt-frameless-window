@@ -18,8 +18,6 @@ from pyqt_frameless_window.windows.titleBar import TitleBar
 class BaseWidget(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._initVal()
-        self._initUi()
 
     def _initVal(self):
         self._pressToMove = True
@@ -45,9 +43,6 @@ class BaseWidget(QWidget):
         lay.setContentsMargins(0, 0, 0, 0)
         lay.setSpacing(0)
         self.setLayout(lay)
-
-        # raise - helps the button widget not to be blocked by something else
-        self._titleBar.raise_()
 
     def mousePressEvent(self, e):
         if e.button() == Qt.LeftButton:
