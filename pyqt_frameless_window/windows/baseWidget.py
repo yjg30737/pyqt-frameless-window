@@ -5,7 +5,7 @@ import win32gui
 
 from qtpy.QtCore import Qt
 from qtpy.QtGui import QCursor, QIcon
-from qtpy.QtWidgets import QWidget, QVBoxLayout
+from qtpy.QtWidgets import QWidget
 
 from ctypes.wintypes import LPRECT, MSG
 
