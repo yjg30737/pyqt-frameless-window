@@ -39,18 +39,23 @@ I strongly recommend legacy version if your OS is not Windows.
 * FramelessMainWindow - frameless QMainWindow
 
 ## Method Overview
+### For Windows Only (currently)
+* `setWindowIcon(filename: str)` - Set the icon to the title bar. This method is overriden.
+* `setWindowTitle(title: str)` - Set the title to the title bar. This method is overriden.
+* `setTitleBarVisible(f: bool)` - Set the title bar's visibility. 
+    * If you set this <b>true</b> and window is <b>movable</b>, you should click and drag only the title bar to move the window.
+    * If you set this <b>false</b> and window is <b>movable</b>, you can click and drag the part of the window which is not occupied by widget to move the window.
 ### For Windows & The Others
 * `setResizable(f: bool)` - Set resizable/none-resizable
 * `isResizable() -> bool` - Check if window is resizable or not
 * `setPressToMove(f: bool)` - Set movable/non-movable
 * `isPressToMove() -> bool` - Check if window is movable or not
+
 ### The Others
 * `setMargin(margin: int)` - Set the margin which allows cursor to change its shape to resize form
 * `setFrameColor(color)` - Set the background color. color argument type can be both QColor and str.
 * `getFrameColor` -> QColor - Get the background color.
 * `setVerticalExpandedEnabled(f: bool)` - Make it able to expand vertically when double-clicking the top or bottom edges of the window.
-* `setWindowIcon(filename: str)` - Set the icon to the title bar. This method is overriden.
-* `setWindowTitle(title: str)` - Set the title to the title bar. This method is overriden.
 
 ## Example
 ### PyQt5 Code Sample
