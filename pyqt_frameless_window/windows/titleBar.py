@@ -11,8 +11,9 @@ class TitleBar(QWidget):
         self.__initUi()
 
     def __initVal(self, hint):
-        # TODO
-        # iconBtn
+        self._pressToMove = True
+
+        # iconLabel
         self.__iconLbl = QLabel()
 
         # title label
@@ -104,6 +105,16 @@ class TitleBar(QWidget):
             return
         self.__maximize()
 
+    def mousePressEvent(self, e):
+        if e.button() == Qt.LeftButton:
+            if self._pressToMove:
+                self._move()
+        return super().mousePressEvent(e)
+
+    def _move(self):
+        window = self.window().windowHandle()
+        window.startSystemMove()
+
     def eventFilter(self, obj, e):
         if obj is self.window():
             if e.type() == 105:
@@ -121,3 +132,9 @@ class TitleBar(QWidget):
 
     def setTitle(self, title):
         self.__titleLbl.setText(title)
+
+    def setPressToMove(self, f: bool):
+        self._pressToMove = f
+
+    def isPressToMove(self) -> bool:
+        return self._pressToMove

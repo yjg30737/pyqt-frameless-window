@@ -148,3 +148,11 @@ class BaseWidget(QWidget):
         super().setWindowTitle(title)
         self._titleBar.setTitle(title)
 
+    def setTitleBarVisible(self, f):
+        self._titleBar.setVisible(f)
+        if self.isPressToMove() or self._titleBar.isPressToMove():
+            self._titleBar.setPressToMove(f)
+            self.setPressToMove(not f)
+
+
+

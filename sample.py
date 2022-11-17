@@ -5,7 +5,7 @@ import sys
 from PySide6.QtCore import Qt
 
 from pyqt_frameless_window import FramelessDialog
-from PySide6.QtWidgets import QApplication, QTextBrowser
+from PySide6.QtWidgets import QApplication, QTextEdit, QWidget
 
 
 class Window(FramelessDialog):
@@ -16,9 +16,15 @@ class Window(FramelessDialog):
     def __initUi(self):
         self.setWindowTitle('Winter Is Coming')
         self.setWindowIcon('./Stark-icon.png')
+        self.setTitleBarVisible(True)
+
+        emptyWidgetToMove = QWidget()
+        emptyWidgetToMove.setFixedHeight(100)
+        emptyWidgetToMove.setStyleSheet('QWidget { background-color: #ddd; }')
 
         lay = self.layout()
-        lay.addWidget(QTextBrowser())
+        lay.addWidget(emptyWidgetToMove)
+        lay.addWidget(QTextEdit())
         self.setLayout(lay)
 
 
