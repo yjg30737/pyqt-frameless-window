@@ -7,7 +7,7 @@ PyQt(+PySide) Frameless Window
 * Supports PyQt5, PySide2, PySide6
 * User can make it enable/disable to move, resize
 * Supports QWidget, QDialog, QMainWindow
-* Support title bar (very basic-looking buttons in v0.0.73)
+* Support title bar. You can decide either show or hide it.
 
 ## Note
 I have no macOS and Linux to test so i couldn't manage to support them as well.
