@@ -24,7 +24,7 @@ class BaseWidget(QWidget):
         self._resizable = True
         self._border_width = 5
 
-    def _initUi(self):
+    def _initUi(self, hint):
         self._windowEffect = WindowsEffectHelper()
 
         # remove window border
@@ -36,7 +36,7 @@ class BaseWidget(QWidget):
 
         self.windowHandle().screenChanged.connect(self._onScreenChanged)
 
-        self._titleBar = TitleBar(self)
+        self._titleBar = TitleBar(self, hint)
 
     def mousePressEvent(self, e):
         if e.button() == Qt.LeftButton:
