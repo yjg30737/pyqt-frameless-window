@@ -60,6 +60,7 @@ class BaseWidget(QWidget):
 
     def setResizable(self, f: bool):
         self._resizable = f
+        self._titleBar.setBaseWindowResizable(f)
 
     def nativeEvent(self, e, message):
         msg = MSG.from_address(message.__int__())

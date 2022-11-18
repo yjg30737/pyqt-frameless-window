@@ -12,6 +12,9 @@ class TitleBar(QWidget):
 
     def __initVal(self, hint):
         self._pressToMove = True
+        # for make this to recognize that the base window is able to resize or not
+        # this is indeed really weird way to program so i'll figure out other way to handle it soon enough
+        self.__baseWindowResizable = True
 
         # iconLabel
         self.__iconLbl = QLabel()
@@ -101,9 +104,10 @@ class TitleBar(QWidget):
             self.window().showFullScreen()
 
     def mouseDoubleClickEvent(self, event):
-        if event.button() != Qt.LeftButton:
-            return
-        self.__maximize()
+        if self.__baseWindowResizable:
+            if event.button() != Qt.LeftButton:
+                return
+            self.__maximize()
 
     def mousePressEvent(self, e):
         if e.button() == Qt.LeftButton:
@@ -145,3 +149,8 @@ class TitleBar(QWidget):
 
     def setTitleBarHint(self, hint: list):
         print(hint)
+
+    # this is indeed really weird way to program so i'll figure out other way to handle it soon enough
+    def setBaseWindowResizable(self, f: bool):
+        self.__baseWindowResizable = f
+        self.__maxBtn.setVisible(f)
