@@ -53,6 +53,7 @@ class BaseWidget(QWidget):
 
     def setPressToMove(self, f: bool):
         self._pressToMove = f
+        self._titleBar.setPressToMove(f)
 
     def isResizable(self) -> bool:
         return self._resizable
