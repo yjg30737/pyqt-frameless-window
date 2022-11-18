@@ -16,14 +16,8 @@ class Window(FramelessDialog):
     def __initUi(self):
         self.setWindowTitle('Winter Is Coming')
         self.setWindowIcon('./Stark-icon.png')
-        self.setTitleBarVisible(True)
-
-        emptyWidgetToMove = QWidget()
-        emptyWidgetToMove.setFixedHeight(100)
-        emptyWidgetToMove.setStyleSheet('QWidget { background-color: #ddd; }')
 
         lay = self.layout()
-        lay.addWidget(emptyWidgetToMove)
         lay.addWidget(QTextEdit())
         self.setLayout(lay)
 
