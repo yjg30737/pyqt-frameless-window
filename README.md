@@ -7,7 +7,7 @@ PyQt(+PySide) Frameless Window
 * Supports PyQt5, PySide2, PySide6
 * User can make it enable/disable to move, resize
 * Supports QWidget, QDialog, QMainWindow
-* Support title bar (very basic-looking buttons in v0.0.73)
+* Support title bar. You can decide either show or hide it.
 
 ## Note
 I have no macOS and Linux to test so i couldn't manage to support them as well.
@@ -58,6 +58,7 @@ I strongly recommend legacy version if your OS is not Windows.
 * `setVerticalExpandedEnabled(f: bool)` - Make it able to expand vertically when double-clicking the top or bottom edges of the window.
 
 ## Example
+### Note: This example is for Windows only.
 ### PyQt5 Code Sample
 #### FramelessDialog
 ```python
@@ -201,7 +202,15 @@ if __name__ == "__main__":
 
 ### Result
 
+#### Title bar
+
 ![image](https://user-images.githubusercontent.com/55078043/201617865-a613c415-61df-4402-a420-7c15ce3bb868.png)
+
+#### No title bar 
+
+If you make the title bar not visible with `setTitleBarVisible(False)`
+
+![image](https://user-images.githubusercontent.com/55078043/202587513-62a8b31d-df94-47a6-a13c-c3d45d6ce3a2.png)
 
 Try to move and resize it.
 
