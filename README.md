@@ -202,7 +202,15 @@ if __name__ == "__main__":
 
 ### Result
 
+#### Title bar
+
 ![image](https://user-images.githubusercontent.com/55078043/201617865-a613c415-61df-4402-a420-7c15ce3bb868.png)
+
+#### No title bar 
+
+If you make the title bar not visible with `setTitleBarVisible(False)`
+
+![image](https://user-images.githubusercontent.com/55078043/202587513-62a8b31d-df94-47a6-a13c-c3d45d6ce3a2.png)
 
 Try to move and resize it.
 
