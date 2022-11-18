@@ -154,5 +154,8 @@ class BaseWidget(QWidget):
             self._titleBar.setPressToMove(f)
             self.setPressToMove(not f)
 
+    def setTitleBarHint(self, hint: list):
+        self._titleBar.setTitleBarHint(hint)
+
 
 

@@ -124,6 +124,10 @@ class TitleBar(QWidget):
                     self.__maxBtn.setText('🗗')
                 else:
                     self.__maxBtn.setText('🗖')
+                if self.window().isFullScreen():
+                    self.hide()
+                else:
+                    self.show()
 
         return super().eventFilter(obj, e)
 
@@ -138,3 +142,6 @@ class TitleBar(QWidget):
 
     def isPressToMove(self) -> bool:
         return self._pressToMove
+
+    def setTitleBarHint(self, hint: list):
+        print(hint)
