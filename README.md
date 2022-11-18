@@ -58,6 +58,7 @@ I strongly recommend legacy version if your OS is not Windows.
 * `setVerticalExpandedEnabled(f: bool)` - Make it able to expand vertically when double-clicking the top or bottom edges of the window.
 
 ## Example
+### Note: This example is for Windows only.
 ### PyQt5 Code Sample
 #### FramelessDialog
 ```python
