@@ -32,3 +32,14 @@ class WindowsEffectHelper:
             | win32con.CS_DBLCLKS
             | win32con.WS_THICKFRAME,
         )
+
+# TODO
+# should make it unable to maximize with snapping in a dynamical way
+# win32gui.SetWindowLong(
+#             hWnd,
+#             win32con.GWL_STYLE,
+#             win32con.WS_MINIMIZEBOX
+#             | win32con.WS_CAPTION
+#             | win32con.CS_DBLCLKS
+#             | win32con.WS_THICKFRAME,
+#         )
