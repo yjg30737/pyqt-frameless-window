@@ -21,6 +21,8 @@ class Window(FramelessDialog):
         lay.addWidget(QTextEdit())
         self.setLayout(lay)
 
+        self.setFixedSize(400, 400)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
