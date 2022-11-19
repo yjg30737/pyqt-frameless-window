@@ -51,13 +51,14 @@ Available arguments (v0.0.78)
 
 ## Method Overview
 ### For Windows & The Others
-* `setResizable(f: bool)` - Set resizable/none-resizable
+* `setResizable(f: bool)` - Set resizable/none-resizable.
 * `isResizable() -> bool` - Check if window is resizable or not
 * `setPressToMove(f: bool)` - Set movable/non-movable
 * `isPressToMove() -> bool` - Check if window is movable or not
 * #### New Version Only
    * `setWindowIcon(filename: str)` - Set the icon to the title bar. This method is overriden.
    * `setWindowTitle(title: str)` - Set the title to the title bar. This method is overriden.
+   * `setFixedSize(width, height)` - Set the fixed width and height. This method is overriden to call `setResizable(false)`.
    * `setTitleBarVisible(f: bool)` - Set the title bar's visibility. If window is movable, window moving policy will also be decided by this.
        * If you set this <b>true</b> and window is <b>movable</b>, you should click and drag only the title bar to move the window.
        * If you set this <b>false</b> and window is <b>movable</b>, you can click and drag the part of the window which is not occupied by widget to move the window.
