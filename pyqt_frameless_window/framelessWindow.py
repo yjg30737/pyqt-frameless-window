@@ -1,10 +1,9 @@
 import platform
 
-# if platform.system() == 'Windows':
-#     from pyqt_frameless_window.windows.baseWidget import BaseWidget
-# else:
-#     from pyqt_frameless_window.base.baseWidget import BaseWidget
-from pyqt_frameless_window.base.baseWidget import BaseWidget
+if platform.system() == 'Windows':
+    from pyqt_frameless_window.windows.baseWidget import BaseWidget
+else:
+    from pyqt_frameless_window.base.baseWidget import BaseWidget
 
 from qtpy.QtWidgets import QDialog, QMainWindow, QVBoxLayout, QWidget
 
