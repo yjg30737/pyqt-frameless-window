@@ -22,6 +22,7 @@ class FramelessWidget(BaseWidget):
         lay.setSpacing(0)
         self.setLayout(lay)
 
+
 class FramelessDialog(QDialog, BaseWidget):
     def __init__(self, hint=None):
         super().__init__()
