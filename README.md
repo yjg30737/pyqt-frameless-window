@@ -34,9 +34,20 @@ I <b>strongly recommend</b> legacy version if your OS is not Windows and that's 
 `python -m pip install pyqt-frameless-window==0.0.61`
 
 ## Class Overview
-* FramelessWidget - frameless QWidget
-* FramelessDialog - frameless QDialog
-* FramelessMainWindow - frameless QMainWindow
+* FramelessWidget(hint=None) - frameless QWidget
+* FramelessDialog(hint=None) - frameless QDialog
+* FramelessMainWindow(hint=None) - frameless QMainWindow
+
+### About `hint`
+You can give the list of buttons on the right top of the menu bar with `hint` like <b>['full_screen', 'min', 'max', 'close']</b>. 
+
+<b>['min', 'max', 'close']</b> will set by default if you don't give any arguments.
+
+Available arguments (v0.0.78)
+* full_screen
+* min
+* max
+* close
 
 ## Method Overview
 ### For Windows & The Others
