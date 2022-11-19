@@ -1,5 +1,5 @@
 from qtpy.QtCore import Qt
-from qtpy.QtGui import QCursor, QPalette, QBrush, QColor, QScreen
+from qtpy.QtGui import QCursor, QPalette, QBrush, QColor, QScreen, QIcon
 from qtpy.QtWidgets import QWidget
 
 from pyqt_frameless_window.windows import TitleBar
@@ -212,3 +212,26 @@ class BaseWidget(QWidget):
 
     def setVerticalExpandedEnabled(self, f: bool):
         self._verticalExpandedEnabled = f
+
+    def setWindowIcon(self, filename):
+        icon = QIcon()
+        icon.addFile(filename)
+        self._titleBar.setIcon(icon)
+        super().setWindowIcon(icon)
+
+    def setWindowTitle(self, title: str) -> None:
+        super().setWindowTitle(title)
+        self._titleBar.setTitle(title)
+
+    def setTitleBarVisible(self, f):
+        self._titleBar.setVisible(f)
+        if self.isPressToMove() or self._titleBar.isPressToMove():
+            self._titleBar.setPressToMove(f)
+            self.setPressToMove(not f)
+
+    def setTitleBarHint(self, hint: list):
+        self._titleBar.setTitleBarHint(hint)
+
+    def setFixedSize(self, width, height):
+        super().setFixedSize(width, height)
+        self.setResizable(False)
