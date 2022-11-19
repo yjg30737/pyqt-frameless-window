@@ -14,7 +14,7 @@ I have no macOS and Linux to test so i couldn't manage to support them as well.
 
 Maybe i can use the virtual machine or something to do it.
 
-I strongly recommend legacy version if your OS is not Windows.
+I <b>strongly recommend</b> legacy version if your OS is not Windows and that's saying a lot.
 
 ## Requirements
 * PyQt5 - Use QtWinExtras to use Windows API feature in Qt (Qt6 doesn't support QtWinExtras anymore, sadly) 
