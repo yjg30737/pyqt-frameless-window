@@ -8,7 +8,7 @@ from pyqt_frameless_window import FramelessDialog, FramelessWidget, FramelessMai
 from PySide6.QtWidgets import QApplication, QTextEdit
 
 
-class Window(FramelessMainWindow):
+class Window(FramelessDialog):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__initUi()

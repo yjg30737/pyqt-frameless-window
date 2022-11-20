@@ -80,14 +80,11 @@ class TitleBar(QWidget):
                               'background-color: #ddd;'
                               '}')
 
-        # TODO refactoring
-        self.__iconLbl.setStyleSheet('QLabel {'
-                                     'margin-left: 4;'
-                                     '}')
+        label_style = 'QLabel { margin: 4 }'
 
-        self.__titleLbl.setStyleSheet('QLabel {'
-                                     'margin-left: 4;'
-                                     '}')
+        # TODO refactoring
+        self.__iconLbl.setStyleSheet(label_style)
+        self.__titleLbl.setStyleSheet(label_style)
 
     def __maximize(self):
         if self.window().isMaximized():
