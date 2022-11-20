@@ -1,4 +1,5 @@
 from qtpy.QtCore import Qt
+from qtpy.QtGui import QFont
 from qtpy.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout, QSpacerItem, QSizePolicy
 
 
@@ -79,10 +80,10 @@ class TitleBar(QWidget):
                               'QPushButton:checked {'
                               'background-color: #ddd;'
                               '}')
+            btn.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.MinimumExpanding)
 
         label_style = 'QLabel { margin: 4 }'
 
-        # TODO refactoring
         self.__iconLbl.setStyleSheet(label_style)
         self.__titleLbl.setStyleSheet(label_style)
 
@@ -141,6 +142,9 @@ class TitleBar(QWidget):
 
     def isPressToMove(self) -> bool:
         return self._pressToMove
+
+    def setTitleBarFont(self, font: QFont):
+        self.__titleLbl.setFont(font)
 
     def setTitleBarHint(self, hint: list):
         print(hint)
