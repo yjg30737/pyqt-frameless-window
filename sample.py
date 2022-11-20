@@ -20,10 +20,11 @@ class Window(FramelessDialog):
         lay = self.layout()
         lay.addWidget(QTextEdit())
         self.setLayout(lay)
+        self.setResizable(False)
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = Window(['close'])
+    window = Window(['min', 'close'])
     window.show()
     sys.exit(app.exec())
