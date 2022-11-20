@@ -1,5 +1,5 @@
 from qtpy.QtCore import Qt
-from qtpy.QtGui import QFont
+from qtpy.QtGui import QFont, QIcon
 from qtpy.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout, QSpacerItem, QSizePolicy
 
 
@@ -15,10 +15,11 @@ class TitleBar(QWidget):
         # this is indeed really weird way to program so i'll figure out other way to handle it soon enough
         self.__baseWindowResizable = True
 
-        # iconLabel
+        # variables for icon
+        self.__icon = QIcon()
         self.__iconLbl = QLabel()
 
-        # title label
+        # variable for title
         self.__titleLbl = QLabel()
 
         # buttons
@@ -132,7 +133,9 @@ class TitleBar(QWidget):
         return super().eventFilter(obj, e)
 
     def setIcon(self, icon):
-        self.__iconLbl.setPixmap(icon.pixmap(18, 18))
+        self.__icon = icon
+        # 18, 18 by default
+        self.setIconSize(18, 18)
 
     def setTitle(self, title):
         self.__titleLbl.setText(title)
@@ -145,6 +148,9 @@ class TitleBar(QWidget):
 
     def setTitleBarFont(self, font: QFont):
         self.__titleLbl.setFont(font)
+
+    def setIconSize(self, w, h):
+        self.__iconLbl.setPixmap(self.__icon.pixmap(w, h))
 
     def setTitleBarHint(self, hint: list):
         print(hint)
