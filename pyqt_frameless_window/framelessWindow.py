@@ -40,7 +40,7 @@ class FramelessDialog(QDialog, BaseWidget):
 
 class FramelessMainWindow(QMainWindow, BaseWidget):
     def __init__(self, hint=None):
-        super().__init__(hint)
+        super().__init__()
         self._initVal()
         self._initUi(hint)
 
