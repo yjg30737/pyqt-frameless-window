@@ -65,28 +65,34 @@ class TitleBar(QWidget):
         self.setLayout(lay)
 
     def _styleInit(self):
-        for btn in self.__btn_dict.values():
-            btn.setStyleSheet('QPushButton { '
-                              'background-color: transparent; '
-                              'border: 0;'
-                              'width: 50;'
-                              'height: 32;'
-                              '}'
-                              'QPushButton:hover {'
-                              'background-color: #ddd;'
-                              '}'
-                              'QPushButton:pressed {'
-                              'background-color: #aaa;'
-                              '}'
-                              'QPushButton:checked {'
-                              'background-color: #ddd;'
-                              '}')
-            btn.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.MinimumExpanding)
+        # top right buttons' height set to 36 by default
+        self.__btnsStyleInit(h=36)
 
         label_style = 'QLabel { margin: 4 }'
 
         self.__iconLbl.setStyleSheet(label_style)
         self.__titleLbl.setStyleSheet(label_style)
+
+    # This function is separated for the reasons: to adjust height
+    def __btnsStyleInit(self, h):
+        for btn in self.__btn_dict.values():
+            btn.setStyleSheet(f'''
+                              QPushButton {{ 
+                              background-color: transparent; 
+                              border: 0;
+                              width: 50;
+                              height: {h};
+                              }}
+                              QPushButton:hover {{
+                              background-color: #ddd;
+                              }}
+                              QPushButton:pressed {{
+                              background-color: #aaa;
+                              }}
+                              QPushButton:checked {{
+                              background-color: #ddd;
+                              }}
+                              ''')
 
     def __maximize(self):
         if self.window().isMaximized():
@@ -148,9 +154,11 @@ class TitleBar(QWidget):
 
     def setTitleBarFont(self, font: QFont):
         self.__titleLbl.setFont(font)
+        self.__btnsStyleInit(h=font.pointSize()*2)
 
     def setIconSize(self, w, h):
         self.__iconLbl.setPixmap(self.__icon.pixmap(w, h))
+        self.__btnsStyleInit(h=h*2)
 
     def setTitleBarHint(self, hint: list):
         print(hint)
