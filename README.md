@@ -72,6 +72,8 @@ Available arguments (v0.0.78)
 ### == TitleBar (New Version Only) ==
 * `getIcon() -> QLabel` - Get the icon.
 * `getTitle() -> QLabel` - Get the title.
+* `setTitleBarFont(font: QFont)` - Set the font of the title bar.
+* `setIconSize(w, h)` - Set the size of icon on the title bar.
 
 Note: Do not use any functions other than the above.
 
@@ -98,6 +100,11 @@ class Window(FramelessDialog):
     def __initUi(self):
         self.setWindowTitle('Winter Is Coming')
         self.setWindowIcon('./Stark-icon.png')
+
+        # if you want to customize the title bar
+        # titleBar = self.getTitleBar()
+        # titleBar.setTitleBarFont(QFont('Arial', 24))
+        # titleBar.setIconSize(32, 32)
 
         lay = self.layout()
         lay.addWidget(QTextEdit())
@@ -134,7 +141,12 @@ class Window(FramelessMainWindow):
     def __initUi(self):
         self.setWindowTitle('Winter Is Coming')
         self.setWindowIcon('./Stark-icon.png')
-
+        
+        # if you want to customize the title bar
+        # titleBar = self.getTitleBar()
+        # titleBar.setTitleBarFont(QFont('Arial', 24))
+        # titleBar.setIconSize(32, 32)
+        
         mainWidget = self.centralWidget()
         lay = mainWidget.layout()
         lay.addWidget(QTextEdit())
@@ -170,7 +182,12 @@ class Window(FramelessDialog):
     def __initUi(self):
         self.setWindowTitle('Winter Is Coming')
         self.setWindowIcon('./Stark-icon.png')
-
+        
+        # if you want to customize the title bar
+        # titleBar = self.getTitleBar()
+        # titleBar.setTitleBarFont(QFont('Arial', 24))
+        # titleBar.setIconSize(32, 32)
+        
         lay = self.layout()
         lay.addWidget(QTextEdit())
         self.setLayout(lay)
@@ -203,7 +220,12 @@ class Window(FramelessMainWindow):
     def __initUi(self):
         self.setWindowTitle('Winter Is Coming')
         self.setWindowIcon('./Stark-icon.png')
-
+        
+        # if you want to customize the title bar
+        # titleBar = self.getTitleBar()
+        # titleBar.setTitleBarFont(QFont('Arial', 24))
+        # titleBar.setIconSize(32, 32)
+        
         mainWidget = self.centralWidget()
         lay = mainWidget.layout()
         lay.addWidget(QTextEdit())
