@@ -5,8 +5,6 @@ from qtpy.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout, QSpacerIte
 class TitleBar(QWidget):
     def __init__(self, base_widget=None, hint=None):
         super().__init__(base_widget)
-        if hint is None:
-            hint = ['min', 'max', 'close']
         self.__initVal(hint)
         self.__initUi()
 

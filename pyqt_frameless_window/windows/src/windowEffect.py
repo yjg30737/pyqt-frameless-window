@@ -18,28 +18,17 @@ class WindowsEffectHelper:
         self.__dwmSetWindowAttribute = dwmapi.DwmSetWindowAttribute
 
     # set fancy effect
-    def setBasicEffect(self, hWnd):
+    def setBasicEffect(self, hWnd, hint):
         hWnd = int(hWnd)
         margins = MARGINS(-1, -1, -1, -1)
         self.__dwmExtendFrameIntoClientArea(hWnd, byref(margins))
-
+        dwNewLong = win32con.WS_CAPTION | win32con.CS_DBLCLKS | win32con.WS_THICKFRAME
+        if 'min' in hint:
+            dwNewLong |= win32con.WS_MINIMIZEBOX
+        if 'max' in hint:
+            dwNewLong |= win32con.WS_MAXIMIZEBOX
         win32gui.SetWindowLong(
             hWnd,
             win32con.GWL_STYLE,
-            win32con.WS_MINIMIZEBOX
-            | win32con.WS_MAXIMIZEBOX
-            | win32con.WS_CAPTION
-            | win32con.CS_DBLCLKS
-            | win32con.WS_THICKFRAME,
+            dwNewLong
         )
-
-# TODO
-# should make it unable to maximize with snapping in a dynamical way
-# win32gui.SetWindowLong(
-#             hWnd,
-#             win32con.GWL_STYLE,
-#             win32con.WS_MINIMIZEBOX
-#             | win32con.WS_CAPTION
-#             | win32con.CS_DBLCLKS
-#             | win32con.WS_THICKFRAME,
-#         )

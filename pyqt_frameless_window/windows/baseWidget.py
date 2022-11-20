@@ -24,7 +24,9 @@ class BaseWidget(QWidget):
         self._resizable = True
         self._border_width = 5
 
-    def _initUi(self, hint):
+    def _initUi(self, hint=None):
+        if hint is None:
+            hint = ['min', 'max', 'close']
         self._windowEffect = WindowsEffectHelper()
 
         # remove window border
@@ -32,7 +34,7 @@ class BaseWidget(QWidget):
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
 
         # add DWM shadow and window animation
-        self._windowEffect.setBasicEffect(self.winId())
+        self._windowEffect.setBasicEffect(self.winId(), hint)
 
         self.windowHandle().screenChanged.connect(self._onScreenChanged)
 
