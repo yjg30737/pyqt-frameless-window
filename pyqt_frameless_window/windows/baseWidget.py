@@ -7,7 +7,7 @@ from qtpy.QtCore import Qt
 from qtpy.QtGui import QCursor, QIcon
 from qtpy.QtWidgets import QWidget
 
-from ctypes.wintypes import LPRECT, MSG
+from ctypes.wintypes import LPRECT, MSG, RECT
 
 from pyqt_frameless_window.windows.src import win32utils
 from pyqt_frameless_window.windows.src.c import LPNCCALCSIZE_PARAMS
@@ -83,6 +83,11 @@ class BaseWidget(QWidget):
                     top = y < self._border_width
                     right = x > w - self._border_width
                     bottom = y > h - self._border_width
+
+                    # to support snap layouts
+                    # more info - https://learn.microsoft.com/en-us/windows/apps/desktop/modernize/apply-snap-layout-menu
+                    # if win32gui.PtInRect((10, 10, 100, 100), (x, y)):
+                    #     return True, win32con.HTMAXBUTTON
 
                     if top and left:
                         return True, win32con.HTTOPLEFT
