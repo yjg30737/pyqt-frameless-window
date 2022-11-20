@@ -145,10 +145,10 @@ class TitleBar(QWidget):
     def setTitleBarHint(self, hint: list):
         print(hint)
 
-    def getIcon(self):
+    def getIcon(self) -> QLabel:
         return self.__iconLbl
 
-    def getTitle(self):
+    def getTitle(self) -> QLabel:
         return self.__titleLbl
 
     # this is indeed really weird way to program so i'll figure out other way to handle it soon enough
