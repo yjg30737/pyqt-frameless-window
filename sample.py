@@ -24,6 +24,6 @@ class Window(FramelessDialog):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = Window()
+    window = Window(['close'])
     window.show()
     sys.exit(app.exec())

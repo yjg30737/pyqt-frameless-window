@@ -22,11 +22,18 @@ class WindowsEffectHelper:
         hWnd = int(hWnd)
         margins = MARGINS(-1, -1, -1, -1)
         self.__dwmExtendFrameIntoClientArea(hWnd, byref(margins))
-        dwNewLong = win32con.WS_CAPTION | win32con.CS_DBLCLKS | win32con.WS_THICKFRAME
-        if 'min' in hint:
-            dwNewLong |= win32con.WS_MINIMIZEBOX
-        if 'max' in hint:
-            dwNewLong |= win32con.WS_MAXIMIZEBOX
+        # common window value (including minimize, maximize, close, resize, animation..)
+        dwNewLong = win32con.WS_CAPTION
+        # if there is only close button
+        if 'close' in hint and len(hint) == 1:
+            pass
+        else:
+            # if there is min button
+            if 'min' in hint:
+                dwNewLong |= win32con.WS_MINIMIZEBOX
+            # if there is max button (it indicates that window is resizable, so add the maximize-related values
+            if 'max' in hint:
+                dwNewLong |= win32con.CS_DBLCLKS | win32con.WS_THICKFRAME | win32con.WS_MAXIMIZEBOX
         win32gui.SetWindowLong(
             hWnd,
             win32con.GWL_STYLE,
