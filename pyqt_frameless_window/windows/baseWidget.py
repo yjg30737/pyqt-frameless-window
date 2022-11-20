@@ -161,6 +161,9 @@ class BaseWidget(QWidget):
     def setTitleBarHint(self, hint: list):
         self._titleBar.setTitleBarHint(hint)
 
+    def getTitleBar(self):
+        return self._titleBar
+
     def setFixedSize(self, width, height):
         super().setFixedSize(width, height)
         self.setResizable(False)
