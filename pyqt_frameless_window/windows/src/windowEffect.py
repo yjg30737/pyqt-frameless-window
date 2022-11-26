@@ -1,9 +1,10 @@
-from ctypes import byref, windll
+from ctypes import byref, windll, c_bool, sizeof
+from ctypes.wintypes import BOOL
 
 import win32con
 import win32gui
 
-from .c import MARGINS
+from .c import MARGINS, DWMWINDOWATTRIBUTE
 
 
 class WindowsEffectHelper:
@@ -39,3 +40,8 @@ class WindowsEffectHelper:
             win32con.GWL_STYLE,
             dwNewLong
         )
+
+    # set dark theme directly
+    def setDarkTheme(self, id, f: bool):
+        self.__dwmSetWindowAttribute(int(id), DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE.value,
+                                     byref(c_bool(f)), sizeof(BOOL))

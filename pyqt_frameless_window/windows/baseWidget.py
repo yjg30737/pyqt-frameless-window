@@ -1,13 +1,14 @@
 from ctypes import cast
+from winreg import ConnectRegistry, HKEY_CURRENT_USER, OpenKey, KEY_READ, QueryValueEx
 
 import win32con
 import win32gui
 
-from qtpy.QtCore import Qt
-from qtpy.QtGui import QCursor, QIcon
+from qtpy.QtCore import Qt, Signal
+from qtpy.QtGui import QCursor, QIcon, QPalette, QColor, QGuiApplication
 from qtpy.QtWidgets import QWidget
 
-from ctypes.wintypes import LPRECT, MSG, RECT
+from ctypes.wintypes import LPRECT, MSG
 
 from pyqt_frameless_window.windows.src import win32utils
 from pyqt_frameless_window.windows.src.c import LPNCCALCSIZE_PARAMS
@@ -16,6 +17,8 @@ from pyqt_frameless_window.windows.titleBar import TitleBar
 
 
 class BaseWidget(QWidget):
+    changedToDark = Signal(bool)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -23,6 +26,8 @@ class BaseWidget(QWidget):
         self._pressToMove = True
         self._resizable = True
         self._border_width = 5
+
+        self.__detect_theme_flag = True
 
     def _initUi(self, hint=None):
         if hint is None:
@@ -40,6 +45,8 @@ class BaseWidget(QWidget):
 
         self._titleBar = TitleBar(self, hint)
 
+        self.__setCurrentWindowsTheme()
+
     def mousePressEvent(self, e):
         if e.button() == Qt.LeftButton:
             if self._pressToMove:
@@ -56,6 +63,38 @@ class BaseWidget(QWidget):
     def setPressToMove(self, f: bool):
         self._pressToMove = f
         self._titleBar.setPressToMove(f)
+
+    # set Windows theme by referring registry key
+    def __setCurrentWindowsTheme(self):
+        try:
+            root = ConnectRegistry(None, HKEY_CURRENT_USER)
+            root_key = OpenKey(HKEY_CURRENT_USER, r'Software\Microsoft\Windows\CurrentVersion\Themes\Personalize', 0, KEY_READ)
+            lightThemeValue, regtype = QueryValueEx(root_key, 'AppsUseLightTheme')
+            if lightThemeValue == 0 or lightThemeValue == 1:
+                dark_f = lightThemeValue == 0
+                if dark_f:
+                    pass
+                    # QGuiApplication.setPalette(QPalette(QColor(0, 0, 0)))
+                else:
+                    pass
+                    # QGuiApplication.setPalette(QPalette(QColor(255, 255, 255)))
+                self._windowEffect.setDarkTheme(self.winId(), dark_f)
+                self.changedToDark.emit(dark_f)
+            else:
+                raise Exception(f'Unknown value "{lightThemeValue}".')
+        except FileNotFoundError:
+            print('AppsUseLightTheme not found.')
+        except Exception as e:
+            print(e)
+
+    def setDarkTheme(self, f: bool):
+        self._windowEffect.setDarkTheme(self.winId(), f)
+
+    def isDetectingThemeAllowed(self):
+        return self.__detect_theme_flag
+
+    def allowDetectingTheme(self, f: bool):
+        self.__detect_theme_flag = f
 
     def isResizable(self) -> bool:
         return self._resizable
@@ -140,6 +179,9 @@ class BaseWidget(QWidget):
 
                 result = 0 if not msg.wParam else win32con.WVR_REDRAW
                 return True, result
+            elif msg.message == win32con.WM_SETTINGCHANGE:
+                if self.__detect_theme_flag:
+                    self.__setCurrentWindowsTheme()
         return super().nativeEvent(e, message)
 
     def _onScreenChanged(self):

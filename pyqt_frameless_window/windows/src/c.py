@@ -1,5 +1,6 @@
 from ctypes import POINTER, Structure, c_int
 from ctypes.wintypes import HWND, RECT, UINT
+from enum import Enum
 
 
 class MARGINS(Structure):
@@ -28,6 +29,10 @@ class NCCALCSIZE_PARAMS(Structure):
         ('rgrc', RECT*3),
         ('lppos', POINTER(PWINDOWPOS))
     ]
+
+# for Windows dark mode
+class DWMWINDOWATTRIBUTE(Enum):
+    DWMWA_USE_IMMERSIVE_DARK_MODE = 20
 
 
 LPNCCALCSIZE_PARAMS = POINTER(NCCALCSIZE_PARAMS)
