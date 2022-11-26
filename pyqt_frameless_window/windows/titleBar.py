@@ -94,6 +94,23 @@ class TitleBar(QWidget):
                               }}
                               ''')
 
+        self.__closeBtn.setStyleSheet(f'''
+                                      QPushButton {{ 
+                                      background-color: transparent; 
+                                      border: 0;
+                                      width: 50;
+                                      height: {h};
+                                      }}
+                                      QPushButton:hover {{
+                                      background-color: #f00;
+                                      color: white;
+                                      }}
+                                      QPushButton:pressed {{
+                                      background-color: #f44;
+                                      color: white;
+                                      }}
+                                      ''')
+
     def __maximize(self):
         if self.window().isMaximized():
             self.window().showNormal()
