@@ -22,6 +22,9 @@ class TitleBar(QWidget):
         # variable for title
         self.__titleLbl = QLabel()
 
+        # corner widget
+        self.__cornerWidget = QWidget()
+
         # buttons
         self.__fullScreenBtn = QPushButton('▣')
         self.__minBtn = QPushButton('🗕')
@@ -54,9 +57,9 @@ class TitleBar(QWidget):
         lay.addWidget(self.__titleLbl)
         lay.addSpacerItem(QSpacerItem(10, 10, QSizePolicy.MinimumExpanding))
 
-        for k in self.__hint:
-            if k in self.__btn_dict:
-                lay.addWidget(self.__btn_dict[k])
+        self.__setCornerWidgetLayout()
+
+        lay.addWidget(self.__cornerWidget)
 
         self._styleInit()
 
@@ -72,6 +75,15 @@ class TitleBar(QWidget):
 
         self.__iconLbl.setStyleSheet(label_style)
         self.__titleLbl.setStyleSheet(label_style)
+
+    def __setCornerWidgetLayout(self):
+        lay = QHBoxLayout()
+        lay.setContentsMargins(0, 0, 0, 0)
+        lay.setSpacing(0)
+        for k in self.__hint:
+            if k in self.__btn_dict:
+                lay.addWidget(self.__btn_dict[k])
+        self.__cornerWidget.setLayout(lay)
 
     # This function is separated for the reasons: to adjust height
     def __btnsStyleInit(self, h):
