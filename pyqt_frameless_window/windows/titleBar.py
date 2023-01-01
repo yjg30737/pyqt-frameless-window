@@ -188,7 +188,17 @@ class TitleBar(QWidget):
         self.__btnsStyleInit(h=h*2)
 
     def setTitleBarHint(self, hint: list):
-        print(hint)
+        old_set = set(self.__hint)
+        new_set = set(hint)
+
+        # "hide" the buttons that are not included in hint
+        diff_lst = list(old_set.difference(new_set))
+        for i in range(len(diff_lst)):
+            self.__btn_dict[diff_lst[i]].hide()
+
+        # show the buttons which include in hint
+        for i in range(len(hint)):
+            self.__btn_dict[hint[i]].show()
 
     def getIcon(self) -> QLabel:
         return self.__iconLbl
