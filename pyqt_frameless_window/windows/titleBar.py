@@ -87,14 +87,17 @@ class TitleBar(QWidget):
 
     # This function is separated for the reasons: to adjust height
     def __btnsStyleInit(self, h):
-        for btn in self.__btn_dict.values():
-            btn.setStyleSheet(f'''
-                              QPushButton {{ 
+        common_btn_style = f'''
+                            QPushButton {{ 
                               background-color: transparent; 
                               border: 0;
                               width: 50;
                               height: {h};
-                              }}
+                            }}
+                          '''
+        for btn in self.__btn_dict.values():
+            btn.setStyleSheet(f'''
+                              {common_btn_style}
                               QPushButton:hover {{
                               background-color: #ddd;
                               }}
@@ -107,12 +110,7 @@ class TitleBar(QWidget):
                               ''')
 
         self.__closeBtn.setStyleSheet(f'''
-                                      QPushButton {{ 
-                                      background-color: transparent; 
-                                      border: 0;
-                                      width: 50;
-                                      height: {h};
-                                      }}
+                                      {common_btn_style}
                                       QPushButton:hover {{
                                       background-color: #f00;
                                       color: white;
