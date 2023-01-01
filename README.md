@@ -49,6 +49,8 @@ Available arguments (v0.0.78)
 * max
 * close
 
+You can set the list of them with `setTitleBarHint(hint: list)` as well. (v0.0.82)
+
 ## Method Overview
 ### == FramelessWidget, FramelessDialog, FramelessMainWindow ==
 #### For Windows & The Others
@@ -64,6 +66,7 @@ Available arguments (v0.0.78)
        * If you set this <b>true</b> and window is <b>movable</b>, you should click and drag only the title bar to move the window.
        * If you set this <b>false</b> and window is <b>movable</b>, you can click and drag the part of the window which is not occupied by widget to move the window.
    * `getTitleBar()` - Get the title bar.
+   * `setTitleBarHint(hint: list)` - Set the standard buttons(min, max, close...) of corner widget.
 #### The Others
 * `setMargin(margin: int)` - Set the margin which allows cursor to change its shape to resize form
 * `setFrameColor(color)` - Set the background color. color argument type can be both QColor and str.
