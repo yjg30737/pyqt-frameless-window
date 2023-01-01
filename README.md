@@ -44,7 +44,7 @@ You can give the list of buttons on the right top of the menu bar with `hint` li
 <b>['min', 'max', 'close']</b> will set by default if you don't give any arguments.
 
 Available arguments (v0.0.78)
-* full_screen
+* full_screen (still buggy, for example you can resize the full-screen window if you put the cusror to the very edge of the window)
 * min
 * max
 * close
