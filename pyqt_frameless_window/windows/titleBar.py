@@ -57,7 +57,9 @@ class TitleBar(QWidget):
         lay.addWidget(self.__titleLbl)
         lay.addSpacerItem(QSpacerItem(10, 10, QSizePolicy.MinimumExpanding))
 
+        # Add every button at the first
         self.__setCornerWidgetLayout()
+        self.setTitleBarHint(self.__hint)
 
         lay.addWidget(self.__cornerWidget)
 
@@ -80,9 +82,8 @@ class TitleBar(QWidget):
         lay = QHBoxLayout()
         lay.setContentsMargins(0, 0, 0, 0)
         lay.setSpacing(0)
-        for k in self.__hint:
-            if k in self.__btn_dict:
-                lay.addWidget(self.__btn_dict[k])
+        for k in self.__btn_dict:
+            lay.addWidget(self.__btn_dict[k])
         self.__cornerWidget.setLayout(lay)
 
     # This function is separated for the reasons: to adjust height
@@ -188,7 +189,7 @@ class TitleBar(QWidget):
         self.__btnsStyleInit(h=h*2)
 
     def setTitleBarHint(self, hint: list):
-        old_set = set(self.__hint)
+        old_set = set(self.__btn_dict.keys())
         new_set = set(hint)
 
         # "hide" the buttons that are not included in hint
