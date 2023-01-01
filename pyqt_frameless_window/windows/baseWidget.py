@@ -182,6 +182,11 @@ class BaseWidget(QWidget):
             elif msg.message == win32con.WM_SETTINGCHANGE:
                 if self.__detect_theme_flag:
                     self.__setCurrentWindowsTheme()
+            # TODO temporary measurement
+            # this is just a inevitable workaround
+            elif msg.message == win32con.WM_STYLECHANGING:
+                self._resizable = not self.isFullScreen()
+                self._pressToMove = not self.isFullScreen()
         return super().nativeEvent(e, message)
 
     def _onScreenChanged(self):

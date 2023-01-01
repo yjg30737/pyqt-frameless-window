@@ -30,6 +30,7 @@ class Window(FramelessDialog):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = Window()
-    # window.setTitleBarHint(['full_screen', 'min', 'close'])
+    titlebar = window.getTitleBar()
+    titlebar.setTitleBarHint(['full_screen', 'min', 'close'])
     window.show()
     sys.exit(app.exec())
