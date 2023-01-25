@@ -2,7 +2,7 @@ from qtpy.QtCore import Qt
 from qtpy.QtGui import QCursor, QPalette, QBrush, QColor, QScreen, QIcon
 from qtpy.QtWidgets import QWidget
 
-from pyqt_frameless_window.windows import TitleBar
+# from pyqt_frameless_window.windows import TitleBar
 
 
 class BaseWidget(QWidget):
@@ -29,7 +29,7 @@ class BaseWidget(QWidget):
     def _initBasicUi(self, hint):
         self.setMouseTracking(True)
         self.setWindowFlags(Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinMaxButtonsHint)
-        self._titleBar = TitleBar(self, hint)
+        # self._titleBar = TitleBar(self, hint)
 
     # init the edge direction for set correct reshape cursor based on it
     def _initPosition(self):
