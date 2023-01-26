@@ -163,6 +163,9 @@ class TitleBar(QWidget):
                     self.hide()
                 else:
                     self.show()
+            # maintain the proper height of title bar
+            if e.type() == 76:
+                self.setMaximumHeight(self.sizeHint().height())
 
         return super().eventFilter(obj, e)
 
