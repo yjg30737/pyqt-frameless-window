@@ -265,4 +265,4 @@ Note: Result image was tested in Windows 11, PySide6.
 
 ## TODO
 
-* Make QWebEngineView work in win32 app (Windows 10)
+* Make QWebEngineView work in win32 app (Windows 10) - QDockWidget, QMdiSubArea
