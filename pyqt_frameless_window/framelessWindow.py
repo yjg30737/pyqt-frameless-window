@@ -6,9 +6,13 @@ else:
     from pyqt_frameless_window.base.baseWidget import BaseWidget
 
 from qtpy.QtWidgets import QDialog, QMainWindow, QVBoxLayout, QWidget
+from qtpy.QtCore import Signal
+
 
 
 class FramelessWidget(BaseWidget):
+    changedToDark = Signal(bool)
+
     def __init__(self, hint=None):
         super().__init__()
         self._initVal()
@@ -24,6 +28,7 @@ class FramelessWidget(BaseWidget):
 
 
 class FramelessDialog(QDialog, BaseWidget):
+    changedToDark = Signal(bool)
     def __init__(self, hint=None):
         super().__init__()
         self._initVal()
@@ -39,6 +44,7 @@ class FramelessDialog(QDialog, BaseWidget):
 
 
 class FramelessMainWindow(QMainWindow, BaseWidget):
+    changedToDark = Signal(bool)
     def __init__(self, hint=None):
         super().__init__()
         self._initVal()
@@ -51,7 +57,7 @@ class FramelessMainWindow(QMainWindow, BaseWidget):
         lay.setContentsMargins(0, 0, 0, 0)
         lay.setSpacing(0)
 
-        mainWidget = QWidget()
+        mainWidget = BaseWidget()
         mainWidget.setLayout(lay)
 
         self.setCentralWidget(mainWidget)

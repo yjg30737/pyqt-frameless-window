@@ -28,6 +28,8 @@ class BaseWidget(QWidget):
         self._border_width = 5
 
         self.__detect_theme_flag = True
+        # define in advance to prevent AttributeError
+        self._titleBar = ''
 
     def _initUi(self, hint=None):
         if hint is None:
