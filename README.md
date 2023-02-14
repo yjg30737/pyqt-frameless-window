@@ -262,3 +262,7 @@ Note: Result image was tested in Windows 11, PySide6.
 ## See Also
 
 <a href="https://github.com/yjg30737/pyqt-frameless-window/tree/b84dd1ba421aa7f3f940229ce6379611380f5e35">Legacy version(0.0.61) README</a> - not using Windows API, qtpy, just good old PyQt5. Enable to resize and move as always. (clunky in Windows though) Only for PyQt5 by the way.
+
+## TODO
+
+* Make QWebEngineView work in win32 app (Windows 10) - QDockWidget, QMdiSubWindow
