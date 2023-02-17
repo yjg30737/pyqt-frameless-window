@@ -268,4 +268,4 @@ Don't use multiple inheritance!!
 
 ## TODO list
 * Make QWebEngineView work in win32 app (Windows 10) - QDockWidget, QMdiSubWindow
-* In Windows - Switching customized title bar theme, not native title bar
+* Switching the customized title bar's theme only 
