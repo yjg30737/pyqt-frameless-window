@@ -31,14 +31,17 @@ class BaseWidget(QWidget):
         # define in advance to prevent AttributeError
         self._titleBar = ''
 
-    def _initUi(self, hint=None):
+    def _initUi(self, hint=None, flags: list = []):
         if hint is None:
             hint = ['min', 'max', 'close']
         self._windowEffect = WindowsEffectHelper()
 
         # remove window border
         # seems kinda pointless(though if you get rid of code below frame will still be seen), but if you don't add this, cursor won't properly work
-        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+        newFlags = self.windowFlags() | Qt.FramelessWindowHint
+        for flag in flags:
+            newFlags |= flag
+        self.setWindowFlags(newFlags)
 
         # add DWM shadow and window animation
         self._windowEffect.setBasicEffect(self.winId(), hint)
