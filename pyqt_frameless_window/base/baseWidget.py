@@ -22,13 +22,16 @@ class BaseWidget(QWidget):
         self._originalY = 0
         self._originalHeightBeforeExpand = 0
 
-    def _initUi(self, hint):
+    def _initUi(self, hint, flags):
         self._initPosition()
-        self._initBasicUi(hint)
+        self._initBasicUi(hint, flags)
 
-    def _initBasicUi(self, hint):
+    def _initBasicUi(self, hint, flags):
         self.setMouseTracking(True)
-        self.setWindowFlags(Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinMaxButtonsHint)
+        newFlags = Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinMaxButtonsHint
+        for flag in flags:
+            newFlags |= flag
+        self.setWindowFlags(newFlags)
         # self._titleBar = TitleBar(self, hint)
 
     # init the edge direction for set correct reshape cursor based on it
