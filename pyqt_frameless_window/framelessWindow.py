@@ -57,7 +57,7 @@ class FramelessMainWindow(QMainWindow, BaseWidget):
         lay.setContentsMargins(0, 0, 0, 0)
         lay.setSpacing(0)
 
-        mainWidget = BaseWidget()
+        mainWidget = QWidget()
         mainWidget.setLayout(lay)
 
         self.setCentralWidget(mainWidget)
