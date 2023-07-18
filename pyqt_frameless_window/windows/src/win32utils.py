@@ -7,8 +7,6 @@ import win32gui
 
 from qtpy.QtCore import QOperatingSystemVersion
 from qtpy.QtGui import QGuiApplication
-# should use PyQt5 for using QtWin, since Qt6 ditched it
-from PyQt5.QtWinExtras import QtWin
 from win32comext.shell import shellcon
 
 
@@ -48,7 +46,7 @@ def getResizeBorderThickness(hWnd):
     if result > 0:
         return result
 
-    thickness = 8 if QtWin.isCompositionEnabled() else 4
+    thickness = 8
     return round(thickness*window.devicePixelRatio())
 
 def findWindow(hWnd):

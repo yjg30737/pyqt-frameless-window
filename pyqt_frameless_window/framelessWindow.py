@@ -1,7 +1,7 @@
 import platform
 
 if platform.system() == 'Windows':
-    from pyqt_frameless_window.windows.baseWidget import BaseWidget
+    from pyqt_frameless_window.windows.baseWidget import BaseWidget, BaseDialog, BaseMainWindow
 else:
     from pyqt_frameless_window.base.baseWidget import BaseWidget
 
@@ -27,7 +27,7 @@ class FramelessWidget(BaseWidget):
         self.setLayout(lay)
 
 
-class FramelessDialog(QDialog, BaseWidget):
+class FramelessDialog(BaseDialog):
     changedToDark = Signal(bool)
     def __init__(self, hint=None, flags: list = []):
         super().__init__()
@@ -43,8 +43,9 @@ class FramelessDialog(QDialog, BaseWidget):
         self.setLayout(lay)
 
 
-class FramelessMainWindow(QMainWindow, BaseWidget):
+class FramelessMainWindow(BaseMainWindow):
     changedToDark = Signal(bool)
+
     def __init__(self, hint=None, flags: list = []):
         super().__init__()
         self._initVal()
